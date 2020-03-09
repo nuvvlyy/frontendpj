@@ -14,13 +14,8 @@ import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSnackBarModule} from '@angular/material';
-// import { QuillModule } from 'ngx-quill'
+import { MatSnackBarModule } from '@angular/material';
 import { NgxQuillModule } from '@dimpu/ngx-quill'
-// import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-// import { domtoimage } from 'dom-to-image-more';
-import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -80,16 +75,8 @@ const fbLoginOptions: LoginOpt = {
   enable_profile_selector: true
 }; // https://developers.facebook.com/docs/reference/javascript/FB.login/v2.11
 
-const config = new AuthServiceConfig([
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('523738721880315',fbLoginOptions)
-  }
-]);
 
-export function provideConfig() {
-  return config;
-}
+
 
 @NgModule({
   declarations: [
@@ -130,7 +117,6 @@ export function provideConfig() {
     // }),
     // domtoimage,
     BrowserModule,
-    SocialLoginModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
     FileUploadModule,
@@ -157,12 +143,7 @@ export function provideConfig() {
     EditorModule,
     MatTooltipModule,
   ],
-  providers: [
-    {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
