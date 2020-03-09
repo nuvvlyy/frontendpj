@@ -18,6 +18,7 @@
     "@angular/compiler-cli": "^9.0.5",
     "@angular/core": "~9.0.5",
     "@angular/forms": "~9.0.5",
+    "@angular/localize": "^9.0.5",
     "@angular/material": "^8.2.3",
     "@angular/platform-browser": "~9.0.5",
     "@angular/platform-browser-dynamic": "~9.0.5",
