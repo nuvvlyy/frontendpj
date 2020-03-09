@@ -33,7 +33,7 @@ export class Step2Component implements OnInit {
   userStones = [];
   bubble = [{
     img: String,
-    active: Boolean,
+    active: Boolean() ,
     index : Number
 
   }];
@@ -209,9 +209,9 @@ export class Step2Component implements OnInit {
     this.bubbleIndex = index;
     this.isBubble = true;
     if(this.bubble[index].active) {
-      this.bubble.fill({ 'img': this.bubble[index].img , 'active': false , index : this.bubble[index].index}, index, index + 1)
+      this.bubble.fill({ 'img': this.bubble[index].img , active: false , index : this.bubble[index].index}, index, index + 1)
     }else{
-      this.bubble.fill({'img': this.bubble[index].img , 'active': true ,  index : this.bubble[index].index}, index, index + 1)
+      this.bubble.fill({'img': this.bubble[index].img , active: true ,  index : this.bubble[index].index}, index, index + 1)
     }
 
 
@@ -231,7 +231,7 @@ export class Step2Component implements OnInit {
     // let count =0;
     if (this.isBubble) {
       await this.bubble.forEach((value, index) => {
-        if (value.active == true) {
+        if (value.active) {
           // count++;
           console.log(value);
           // var s = this.stoneSelect.findIndex(x => x.id == index);
@@ -249,7 +249,7 @@ export class Step2Component implements OnInit {
             this.stoneItems[ind]['num'] -= 1
           }
 
-          this.bubble.fill({'img': img_src, 'active': false,index: i}, index, index + 1)
+          this.bubble.fill({'img': img_src, 'active': true ,index: i}, index, index + 1)
         }
       });
 
