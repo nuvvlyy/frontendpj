@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
   attribute
   isDisplay = false;
   isSearchError = false;
-
+  
   isOpen: boolean = false
   isLogined: boolean = false
   frist_name
