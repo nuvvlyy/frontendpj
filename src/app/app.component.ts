@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'stoneselectforyou';
+  isAdmin = false;
+  ngOnInit() {
+    if (localStorage.getItem('user_type')=="admin") {
+      this.isAdmin = true;
+    }
+  }
 }

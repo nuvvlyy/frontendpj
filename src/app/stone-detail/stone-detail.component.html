@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+
+<div *ngIf="!isLoading">
+
+        <div class="row d-flex align-items-center p15">
+            <div class="col-1 d-flex justify-content-end">
+                <img class="stone-img-sm" [src]="urlsm(stone.stone_img_sm)">
+            </div>
+            <div class="col-sm-9">
+                <h2>{{ stone.stone_name_th }}<div class="text-head px-2"> {{ stone.stone_name_en }}</div>
+
+                    <i *ngIf="stone.fav" class="fas fa-heart  fa-sm d-inline px-2" (click)="addFav()"
+                       matTooltip="นำออกจากรายการโปรด"
+                       [matTooltipPosition]="'right'"></i>
+
+                    <i *ngIf="!stone.fav" class="far fa-heart fa-sm d-inline px-2" (click)="addFav()"
+                       matTooltip="เพิ่มเข้าสู่รายการโปรด"
+                       [matTooltipPosition]="'right'"></i>
+                </h2>
+                <label>สี : {{ stone.color || '-' }}</label>
+              <div class="row">
+                <div class="col-auto pr-0">
+                  <span  > ชื่อทางเคมี :</span>
+                </div>
+                <div class="col">
+                  <div [innerHTML]="stone.chemical_formula"></div>
+                </div>
+              </div>
+<!--              <span style="margin-bottom: .5rem" >ชื่อทางเคมี :</span>  <div [innerHTML]="stone.chemical_formula"></div>-->
+              <div class="row">
+                <label class="col-auto pr-0">เรื่องที่เสริม : </label>
+
+                <div class="d-flex col justify-content-start pr-1">
+              <div *ngFor="let a of stone.attribute;let i = index" class="d-inline ml2">
+                <span class="badge badge-a p2">{{ AttributeItems[a].attribute_name }}</span>
+              </div></div>
+              </div>
+
+            </div>
+            <p class="card-text"></p>
+        </div>
+    <div class="row">
+        <div class="col-sm-auto ml20">
+            <img class="stone-img" [src]="url(stone)">
+        </div>
+        <div class="col pl8 pr30">
+            <h5><b>รายละเอียด</b></h5>
+          <div [innerHTML]="getDescription(stone)"></div>
+
+        </div>
+    </div>
+
+</div>

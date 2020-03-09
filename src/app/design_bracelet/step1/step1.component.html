@@ -1,0 +1,70 @@
+<div class="card mx-auto mt-5 p-5 d-flex justify-content-center">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-auto text-right">
+            <span>
+                ขนาดข้อมือ<span class="text-danger" >*</span>
+            </span>
+
+        </div>
+        <div class="col-auto">
+          <div class="mb-3 justify-content-start">
+            <ng-select  class="auto-grow" [(ngModel)]="_wristSize" (change)="isError = false" placeholder="ขนาดของข้อมือ">
+              <ng-option class="text-left" value=13>13 เซนติเมตร</ng-option>
+              <ng-option value=13.5>13.5 เซนติเมตร</ng-option>
+              <ng-option value=14>14 เซนติเมตร</ng-option>
+              <ng-option value=14.5> 14.5 เซนติเมตร</ng-option>
+              <ng-option value=15>15 เซนติเมตร</ng-option>
+              <ng-option value=15.5>15.5 เซนติเมตร</ng-option>
+              <ng-option value=16>16 เซนติเมตร</ng-option>
+              <ng-option value=16.5>16.5 เซนติเมตร</ng-option>
+              <ng-option value=17>17 เซนติเมตร</ng-option>
+              <ng-option value=17.5>17.5 เซนติเมตร</ng-option>
+              <ng-option value=18>18 เซนติเมตร</ng-option>
+              <ng-option value=18.5>18.5 เซนติเมตร</ng-option>
+              <ng-option value=19>19 เซนติเมตร</ng-option>
+              <ng-option value=19.5>19.5 เซนติเมตร</ng-option>
+              <ng-option value=20>20 เซนติเมตร</ng-option>
+              <ng-option value=20.5>20.5 เซนติเมตร</ng-option>
+              <ng-option value=21>21 เซนติเมตร</ng-option>
+            </ng-select>
+          </div>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-auto text-right">
+            <span>
+              ขนาดของหิน <span class="text-danger" >*</span>
+                <br>
+                <div style="font-size: 11px">(เส้นผ่านศูนย์กลาง)</div>
+            </span>
+        </div>
+        <div class="col-auto">
+            <div class="input-group mb-3 justify-content-start">
+                <ng-select class="auto-grow"   [(ngModel)]="_stoneSize" (change)="isError = false" placeholder="ขนาดของหิน">
+                  <ng-option value=8>8 มิลลิเมตร</ng-option>
+                  <ng-option value=10>10 มิลลิเมตร</ng-option>
+                </ng-select>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-auto text-right">
+            <span>
+                รูปแบบของหิน
+            </span>
+        </div>
+        <div class="col-auto">
+            <div class="form-check form-check-inline ">
+                <input class="form-check-input" type="radio" name="_stoneShape" value="C" [(ngModel)]="_stoneShape">
+                <label class="form-check-label" >กลม</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="_stoneShape" value="E" [(ngModel)]="_stoneShape">
+                <label class="form-check-label" >รี</label>
+            </div>
+        </div>
+
+    </div>
+    <div class="text-small text-center text-danger mt-3" *ngIf="isError">*กรุณากรอกข้อมูลให้ครบถ้วน</div>
+    <button type="button" class="btn btn-blue mx-auto mt-5" (click)="submit($event)">ถัดไป</button>
+</div>

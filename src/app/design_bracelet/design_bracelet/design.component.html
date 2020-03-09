@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+
+<div class="row justify-content-center mt-5">
+<div class="col-6 ">
+<div class="bs-stepper">
+        <div class="bs-stepper-header">
+          <div class="step" >
+            <div class="step-trigger"
+                 >
+              <div *ngIf="_isStep1" class="bs-stepper-circle active" >1</div>
+              <div *ngIf="!_isStep1"class="bs-stepper-circle"
+                   matTooltip="เลือกรูปแบบของสร้อยข้อมือ">1</div>
+              <p *ngIf="_isStep1"  class="bs-stepper-label">เลือกรูปแบบของสร้อยข้อมือ</p>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="step" data-target="#test-l-2">
+            <button class="step-trigger"
+                    >
+              <span *ngIf="_isStep2" class="bs-stepper-circle active">2</span>
+              <span *ngIf="!_isStep2"class="bs-stepper-circle"
+                  matTooltip="ออกแบบของสร้อยข้อมือ">2</span>
+              <p  *ngIf="_isStep2" class="bs-stepper-label">ออกแบบของสร้อยข้อมือ</p>
+            </button>
+          </div>
+          <div class="line"></div>
+          <div class="step" data-target="#test-l-3">
+            <button class="step-trigger">
+              <span *ngIf="!_isStep3"  class="bs-stepper-circle"
+                    matTooltip="สิ้นสุดการออกแบบ">3</span>
+              <span  *ngIf="_isStep3" class="bs-stepper-circle active">3</span>
+              <p  *ngIf="_isStep3" class="bs-stepper-label">สิ้นสุดการออกแบบ</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<app-step1 *ngIf="_isStep1" (wristSize)="getWristSize($event)" (stoneSize) ="getStoneSize($event)" (stoneShape) ="getStoneShape($event)" (isStep2)="getIsStep2($event)"></app-step1>
+<div id="test-l-2" class="content">
+<app-step2 *ngIf="_isStep2" [wristSize]="_wristSize" [stoneSize]="_stoneSize" [stoneShape]="_stoneShape"  (isStep1)="getIsStep1($event)" (isStep3)="getIsStep3($event)" (bracelet_img)="getBraceletImg($event)" ></app-step2>
+</div>
+<div id="test-l-3" class="content text-center">
+<app-step3 *ngIf="_isStep3" [bracelet_img]="_bracelet_img"></app-step3>
+</div>

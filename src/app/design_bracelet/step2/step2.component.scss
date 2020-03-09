@@ -1,0 +1,121 @@
+
+@import '~compass-mixins/lib/compass/css3';
+.card{
+    background-color: white;
+    width: 75%;
+
+    box-shadow: 0 3px 6px 0 rgba(167, 167, 167, 0.19);
+}
+.border-right{
+    border-left: 2px solid black;
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    margin-left: -3px;
+    top: 0;
+}
+.bggg{
+    background-color: aqua;
+    border: 1px solid saddlebrown;
+}
+.img-stone{
+  &:hover{
+    border-radius: 50%;
+    border: 1px solid lightslategrey;
+    cursor: pointer;
+  }
+}
+
+
+
+/// Mixin to place items on a circle
+/// @author Hugo Giraudel
+/// @author Ana Tudor
+/// @param {Integer} $item-count - Number of items on the circle
+/// @param {Length} $circle-size - Large circle size
+/// @param {Length} $item-size - Single item size
+@mixin on-circle($item-count, $circle-size, $item-size) {
+  position: relative;
+  width:  $circle-size;
+  height: $circle-size;
+  border-radius: 50%;
+  padding: 0;
+  list-style: none;
+
+  > * {
+    display: block;
+    position: absolute;
+    top:  50%;
+    left: 50%;
+    margin-top: -($item-size / 1.8);
+    //width:  $item-size;
+    //height: $item-size;
+
+    $angle: (360 / $item-count);
+    $rot: 0;
+
+    @for $i from 1 through $item-count {
+      &:nth-of-type(#{$i}) {
+        transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
+      }
+
+      $rot: $rot + $angle;
+    }
+  }
+}
+
+$num: 40;
+$num2:21;
+$num3:10;
+@for $i from 1 through $num {
+  @for $j from 13 through $num2 {
+    @for $k from 8 through $num3 {
+      .circle-container-#{$i}.circle-size-#{$j}.item-size#{$k} {
+        $k:$k - 1;
+        @include on-circle($item-count: $i, $circle-size: $j* 1rem, $item-size: $k * 1rem );
+        margin: 5em 0 0;
+
+        //border: solid 5px tomato;
+
+        img {
+          display: block;
+          max-width: 100%;
+          border-radius: 50%;
+          //filter: grayscale(100%);
+          //border: solid 5px #154360;
+          // transition: .15s;
+          background-color: black;
+          background-repeat: no-repeat;
+          background-size: auto;
+          width: 40px;
+          height: 40px;
+
+          &:hover {
+            filter: grayscale(0);
+            cursor: pointer;
+            background-color: #B8817D;
+          }
+
+          //&:active{
+          //  filter: grayscale(50);
+          //  background-color: lightsalmon;
+          //}
+          &.active {
+            background-color: lightsalmon;
+            border: solid 5px lightsalmon;
+          }
+
+        }
+
+      }
+    }
+  }
+
+}
+
+.btn-dark{
+  &:hover{
+    cursor: pointer;
+
+  }
+}

@@ -1,12 +1,25 @@
-<nav class="navbar navbar-expand-lg navbar-light justify-content-end" >
-    <div class="mr-4 mt-4"> 
-   <a class="navbar-brand ">
-      <i class="fas fa-user "></i>
+<nav  class="animated fadeInDown navbar navbar-expand-lg navbar-light justify-content-end">
+  <div class="mr-4 mt-4 d-flex align-items-baseline">
+    <a class="navbar-brand nav-item btn-group">
+      <i class="fas fa-user nav-icon" data-toggle="dropdown" data-display="static" aria-haspopup="true"
+        aria-expanded="false"></i>
+      <div *ngIf="isDisplayed">
+        <div class="dropdown-menu dropdown-menu-right fade">
+          <a class="dropdown-item" href="/design"> <svg-icon class="mr-2" src="../../assets/image/bangle.svg"></svg-icon> ออกแบบกำไล</a>
+          <a *ngIf="!getIsLogined()" class="dropdown-item" href="/favorite"> <i class="far fa-heart mr-2"></i> รายการโปรด</a>
+
+          <div class="dropdown-divider mt-5"></div>
+
+          <a *ngIf="getIsLogined()" class="dropdown-item" href="/login"> <i
+              class="fas fa-sign-in-alt mr-2"></i>เข้าสู่ระบบ</a>
+          <a *ngIf="!getIsLogined()" class="dropdown-item" (click)="logOut()"> <i
+              class="fas fa-sign-out-alt mr-2"></i>ออกจากระบบ</a>
+        </div>
+      </div>
     </a>
-    <a class="navbar-brand mr-3">
-      <i class="fas fa-search "></i>
+    <a class="navbar-brand mr-3 " href="/home">
+      <i class="fas fa-home nav-icon"></i>
     </a>
 
-</div>
- 
-  </nav>
+  </div>
+</nav>

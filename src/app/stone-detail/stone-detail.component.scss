@@ -1,0 +1,27 @@
+.text-head{
+    font-size: 20px;
+    display: inline-block;
+}
+
+.stone-img{
+    width:300px;
+}
+.stone-img-sm{
+    width:40px;
+    height: 40px;
+}
+i{
+
+    color:#B8817D;
+
+        &:hover{
+            cursor: pointer;
+            color:#E36145;
+        }
+
+
+}
+.badge-a{
+  background-color: #54768B;
+  color: aliceblue;
+}

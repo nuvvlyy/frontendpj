@@ -1,1 +1,112 @@
 /* You can add global styles to this file, and also import other style files */
+//@import "../node_modules/primeicons/primeicons.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~bs-stepper/dist/css/bs-stepper.min.css';
+
+.btn-blue{
+  background-color: #154360;
+  border-color: #154360;
+  color: white;
+  font-size: 16px;
+  width: 100%;
+  height: 120%;
+
+}
+.btn-blue:active{
+  background-color: #3b7091;
+  border-color: #3b7091;
+}
+.btn-blue:hover{
+  background-color: #3b7091;
+  border-color: #3b7091;
+}
+
+
+
+$sizes: 40;
+
+@mixin margin-classes {
+  @for $i from 1 through $sizes {
+     $margin: $i * 0.25rem;
+    /* margin #{$margin} */
+    .m#{$i}  {margin: $margin;}
+    .ml#{$i} {margin-left: $margin;}
+    .mr#{$i} {margin-right: $margin;}
+    .mt#{$i} {margin-top: $margin;}
+    .mb#{$i} {margin-bottom: $margin;}
+    .mx#{$i} {margin-left: $margin; margin-right: $margin;}
+    .my#{$i} {margin-top: $margin; margin-bottom: $margin;}
+  }
+}
+@include margin-classes;
+
+
+@mixin padding-classes {
+  @for $i from 1 through $sizes {
+    $padding: $i * 0.25rem;
+    /* padding #{$padding} */
+    .p#{$i} {padding: $padding;}
+    .pl#{$i} {padding-left: $padding;}
+    .pr#{$i} {padding-right: $padding;}
+    .pt#{$i} {padding-top: $padding;}
+    .pb#{$i} {padding-bottom: $padding;}
+    .px#{$i} {padding-left: $padding; padding-right: $padding;}
+    .py#{$i} {padding-top: $padding; padding-bottom: $padding;}
+  }
+}
+@include padding-classes;
+
+$sizes: 800;
+@mixin width-class{
+  @for $i from 1 through $sizes{
+    $width: $i * 1px;
+  .w#{$i} { width: $width;}
+  }
+}
+
+@include width-class;
+
+
+.form-control:focus{
+  border-color:#154360;
+}
+
+
+
+.thumbnail {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  }
+  .thumbnail img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  }
+  .thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+  }
+
+  .clipwrapper {
+    position: relative;
+    height: 225px;
+  }
+  .clip {
+    position: absolute;
+    clip: rect(50px 218px 155px 82px);
+  }
+
+
+
+.text-nowrap {
+  white-space: nowrap;
+}

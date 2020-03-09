@@ -1,13 +1,21 @@
 .bg{
-    background-color: #154360;
-    height: 200px;
-    width: 100%;  
+  //background: rgb(255,255,255);
+  //background: -moz-linear-gradient(360deg, rgba(255,255,255,1) 0%, rgba(144,174,193,1) 33%, rgba(21,67,96,1) 100%);
+  //background: -webkit-linear-gradient(360deg, rgba(255,255,255,1) 0%, rgba(144,174,193,1) 33%, rgba(21,67,96,1) 100%);
+  //background: linear-gradient(360deg, rgba(255,255,255,1) 0%, rgba(144,174,193,1) 33%, rgba(21,67,96,1) 100%);
+  //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#154360",GradientType=1);
+  //  background-color: #154360;
+  background-image: url("https://images.pexels.com/photos/433108/pexels-photo-433108.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-position: bottom;
+  //background-repeat: no-repeat;
+    height: 300px;
+    width: 100%;
+    margin-top:-20px ;
 }
-.card{
+.card.top{
     background-color: white;
-    height: 200px;
-    width: 75%; 
-    margin-top:-100px; 
+    width: 75%;
+    margin-top:-100px;
     border-radius: 20px;
     box-shadow: 0 3px 6px 0 rgba(167, 167, 167, 0.19);
 }
@@ -17,4 +25,123 @@ button.calendar, button.calendar:active {
     background-repeat: no-repeat;
     background-size: 23px;
     background-position: center;
+}
+.btn-blue{
+    background-color: #154360;
+    border-color: #154360;
+    color: white;
+    font-size: 16px;
+    width: 100%;
+    height: 120%;
+
+}
+.btn-blue:active{
+    background-color: #3b7091;
+    border-color: #3b7091;
+}
+.btn-blue:hover{
+    background-color: #3b7091;
+    border-color: #3b7091;
+}
+
+.sub-title{
+    display: inline;
+    font-size: 13px;
+}
+
+i.heart{
+    z-index:99;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color:#B8817D;
+
+        &:hover{
+            cursor: pointer;
+            color:#E36145;
+        }
+
+
+
+}
+
+.card-img-top{
+    height: 200px;
+    width: auto;
+}
+.card-body .row{
+    &:hover{
+        cursor: pointer;
+        opacity: 0.75;
+        filter: alpha(opacity=75);
+
+    }
+}
+input.icon {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    width: auto;
+}
+
+.stone-img{
+    width:20px;
+    height: 20px;
+}
+.des-text{
+    display:block;
+    height: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+.fa-times{
+  cursor: pointer;
+  &:hover{
+    color: #E36145;
+  }
+}
+
+.badge-a{
+  background-color: #54768B;
+  color: aliceblue;
+}
+
+.text-reset{
+  color: #154360 !important;
+  &:hover{
+    color: lightslategrey!important;
+    cursor: pointer;
+  }
+}
+
+.navbar{
+  .nav-item{
+    color: aliceblue;
+  }
+  .fas.nav-icon{
+    color: aliceblue;
+    &:hover{
+      color: #3b7091;
+    }
+  }
+  .dropdown-item.fas{
+    color: black;
+  }
+  &:hover{
+    cursor: pointer;
+
+  }
+}
+.sticky {
+  //background: #fff;
+
+  position: fixed;
+  top: 0;
+  height: 120px;
+  width: 100%;
 }

@@ -1,45 +1,183 @@
-<div class="bg"></div>
-<div class="card mx-auto">
-    <div class="row p-5">
-        <div class="col-auto" >
-                <p>วันเดือนปีเกิดของคุณ</p>
-                <div class="input-group">
-                    <input class="form-control" placeholder="yyyy-mm-dd"
-                        name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <p>เพศ</p>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" value="M">
-                    <label class="form-check-label" for="gender">ชาย</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" value="F">
-                    <label class="form-check-label" for="gender">หญิง</label>
-                </div>
-            </div>
-            <div class="col-3">
-                <p>อาชีพ</p>
-                    <ng-select>
-                    </ng-select>
-            </div>
-            <div class="col-3">
-                <p>เรื่องที่ต้องการเสริม</p>
-                    <ng-select>
-                    </ng-select>
-            </div>
-            <div class="col-3">
-                
-                    <button type="button" class="btn btn-info">Info</button>
-            </div>
+<app-navbar class="" *ngIf="isDisplayNavbar" style="z-index: 100;" id="navbar"></app-navbar>
+<div class="bg navbar navbar-expand-lg navbar-light align-items-start justify-content-end web_homePage" (scroll)="onWindowScroll($event);">
+  <div class="mr-4 mt-4 d-flex align-items-baseline">
+    <a class="navbar-brand nav-item btn-group">
+      <i class="fas fa-user nav-icon" data-toggle="dropdown" data-display="static" aria-haspopup="true"
+         aria-expanded="false"></i>
+      <div *ngIf="isDisplayed">
+        <div class="dropdown-menu dropdown-menu-right fade">
+          <a class="dropdown-item" href="/design"> <svg-icon class="mr-2" src="../../assets/image/bangle.svg"></svg-icon> ออกแบบกำไล</a>
+          <a *ngIf="!getIsLogined()" class="dropdown-item" href="/favorite"> <i class="far fa-heart mr-2"></i> รายการโปรด</a>
 
+          <div class="dropdown-divider mt-5"></div>
 
+          <a *ngIf="getIsLogined()" class="dropdown-item" href="/login"> <i
+            class="fas fa-sign-in-alt mr-2"></i>เข้าสู่ระบบ</a>
+          <a *ngIf="!getIsLogined()" class="dropdown-item" (click)="logOut()"> <i
+            class="fas fa-sign-out-alt mr-2"></i>ออกจากระบบ</a>
+        </div>
+      </div>
+    </a>
+    <a class="navbar-brand mr-3 " href="/home">
+      <i class="fas fa-home nav-icon"></i>
+    </a>
 
-        
-    </div>
-            
+  </div>
 </div>
+<div class="card top mx-auto p-5">
+    <div class="row d-flex justify-content-sm-start justify-content-center">
+        <div class="col-12 col-sm-auto">
+            <p>วันเดือนปีเกิดของคุณ</p>
+            <div class="input-group">
+                <input class="form-control" placeholder="วันเดือนปีเกิดของคุณ" name="dp"
+                    ngbDatepicker #d="ngbDatepicker" data-date-language="th-th" [(ngModel)]="dateOfBirth" (ngModelChange)="searchItem.set('dateOfBirth', dateOfBirth)">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                </div>
+            </div>
+            <div class="form-check form-check-inline mt2 " *ngIf="haveUser">
+
+                <input class="form-check-input" type="checkbox" name="useBD" value="True"
+                    (change)="checkValue($event)">
+                <label class="form-check-label">
+                    ใช้วันเกิดของคุณ
+                </label>
+                <div *ngIf="haveUser" class="text-right">{{uDate}}</div>
+            </div>
+        </div>
+<!--       <div class="col-12 col-sm-auto">-->
+<!--            <p>เพศ</p>-->
+<!--            <div class="form-check form-check-inline">-->
+<!--                <input class="form-check-input" type="radio" name="gender" value="M" [(ngModel)]="gender">-->
+<!--                <label class="form-check-label" for="gender">ชาย</label>-->
+<!--            </div>-->
+<!--            <div class="form-check form-check-inline">-->
+<!--                <input class="form-check-input" type="radio" name="gender" value="F"[(ngModel)]="gender">-->
+<!--                <label class="form-check-label" for="gender">หญิง</label>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-12 col-sm">-->
+<!--            <p>อาชีพ</p>-->
+<!--            <ng-select>-->
+<!--            </ng-select>-->
+<!--        </div>-->
+        <div class="col-12 col-sm-auto">
+            <p>เรื่องที่ต้องการเสริม</p>
+            <ng-select [items]=AttributeItems
+                       bindLabel="attribute_name"
+                       autofocus
+                       bindValue="id"
+                       [(ngModel)]="attribute"
+                       [multiple]="true"
+                       placeholder="เลือกเรื่องที่ต้องการเสริม"
+                       [searchable]="true"
+                       [hideSelected]="true"
+                       (clear)="onClear()"
+                       (change)="searchItem.set('attribute', attribute)">
+            </ng-select>
+
+        </div>
+
+    </div>
+    <div class="row mt-4 justify-content-center">
+
+        <div class="col-auto mx-auto">
+          <div class="row d-flex align-items-baseline">
+            <div class="col-auto">
+              <button type="button" class="btn btn-blue " (click)="search()">ค้นหาหินสีที่เหมาะสมกับคุณ!</button>
+            </div>
+            <div class="col">
+              <span class="text-reset " (click)="reset()"
+                    matTooltip="กดเพื่อล้างคำค้นหา"
+                    [matTooltipPosition]="'right'">ล้างคำค้นหา</span>
+            </div>
+          </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="container mt2 " *ngIf="!isLoading">
+<!--  <div class=" row d-flex justify-content-sm-start justify-content-center mt10">-->
+<!--    <div class="col-12 col-sm-4 col-xl-3  ">-->
+<!--      <span *ngIf="uDateOfBirth"> {{uDate}}</span>-->
+<!--    </div>-->
+<!--  </div>-->
+    <div class=" row d-flex justify-content-sm-between justify-content-center mt8">
+      <div class="col-12 col-sm">
+<!--        <span class="mr2" *ngIf="dateOfBirth_display"> {{dateOfBirth_display}}</span>-->
+        <div *ngIf="isDisplay">
+        <div *ngFor="let s of searchItem | keyvalue" class="d-inline mt10 ml2" >
+          <div   class="badge badge-secondary p2">{{ displayValue(s.key) }} <span class="fas fa-times pl2" placement="top" ngbTooltip="กดเพื่อลบคำค้นหา" (click)="changedSearchItems(s.key)"></span></div>
+        </div>
+      </div>
+      </div>
+        <div class="col-12 col-sm-4 col-xl-3  ">
+          <span class="small text-muted text-right">ค้นหาชื่อ สี และรายละเอียดของหิน</span>
+            <input class="form-control icon" placeholder="&#xF002; ค้นหาหินสี" [(ngModel)]="searchStone" (change)="isSearchError = false"
+                (keyup)="onSearchStonechange($event)">
+          <span *ngIf="isSearchError" class="small text-danger text-right ">
+          ใส่ 2 ตัวอักษรขึ้นไป
+        </span>
+
+
+        </div>
+    </div>
+    <div class="row" *ngIf="stoneItems">
+        <div class="col-12 col-sm-4 col-xl-3 mt-4" *ngFor="let stone of stoneItems; let i = index">
+
+            <div class="card card-item">
+                <div *ngIf="haveUser">
+                    <i *ngIf="stone.fav" class="heart fas fa-heart fa-lg" (click)="addFav(stone.id,i)"
+                    matTooltip="นำออกจากรายการโปรด"
+                    [matTooltipPosition]="'above'"
+                    ></i>
+                    <i *ngIf="!stone.fav" class="heart far fa-heart fa-lg" (click)="addFav(stone.id,i)"
+                       matTooltip="เพิ่มเข้าสู่รายการโปรด"
+                       [matTooltipPosition]="'above'"
+                    ></i>
+                </div>
+                <div class="thumbnail card-img-top ">
+                    <img class="card-img-top portrait" [src]="url(stone.stone_img)">
+                </div>
+                <div class="card-body" >
+                    <div class="row" (click)="redirect(stone.id)">
+                        <div class="col-2 ">
+                            <img class="stone-img" [src]="urlsm(stone.stone_img_sm)">
+                        </div>
+                        <div class="col-10">
+                            <h5 class="card-title mb-0">{{ stone.stone_name_th || '-'}} <div class="sub-title">
+                                    {{ stone.stone_name_en || '-' }} </div>
+                            </h5>
+                            <p class="card-text text-end"><small class="text-muted">สี : {{ stone.color || '-'}}</small>
+                            </p>
+                            <!-- <small class="">สี {{ stone.color || '-' }}</small> -->
+                            <!-- <p class="card-text">{{ stone.description || "-"}}</p> -->
+                        </div>
+                        <div class="col">
+                            <small class="card-text font-weight-bold">รายละเอียดของหิน</small>
+
+                            <small class="card-text des-text">{{ stone.description || " - "}}</small>
+                            <!-- <small class="card-text des-text mt-2">รายละเอียดของหิน..</small> -->
+
+
+                        </div>
+
+                    </div>
+                  <div class="d-flex justify-content-end">
+                  <div *ngFor="let a of stone.attribute;let i = index" class="d-inline ml2">
+                  <span class="badge badge-a p2">{{ AttributeItems[a].attribute_name }}</span>
+                  </div></div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row text-center" *ngIf="!stoneItems">
+        ไม่พบหินที่คุณค้นหา
+    </div>
+</div>
+
+<app-loading *ngIf="isLoading"></app-loading>

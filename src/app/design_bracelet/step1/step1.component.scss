@@ -1,0 +1,36 @@
+.card{
+    background-color: white;
+    width: 75%;
+
+    box-shadow: 0 3px 6px 0 rgba(167, 167, 167, 0.19);
+}
+.input-group{
+    width: 200px;
+
+}
+.btn-blue{
+    background-color: #154360;
+    border-color: #154360;
+    color: white;
+    font-size: 16px;
+    width: 30%;
+    height: 120%;
+
+}
+.ng-select.auto-grow {
+  display: flex;
+  min-width: 200px;
+
+  .ng-select-container {
+    min-width: 200px;
+    width: auto;
+  }
+
+  .ng-dropdown-panel {
+    min-width: 200px;
+    width: auto;
+  }
+  .ng-option{
+    text-align: left;
+  }
+}
