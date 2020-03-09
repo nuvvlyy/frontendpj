@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {colors} from '@angular/cli/utilities/color';
 import {NgbModalRef, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 interface Stone {
   stone_name_th:string;

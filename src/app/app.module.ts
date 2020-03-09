@@ -14,7 +14,7 @@ import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxQuillModule } from '@dimpu/ngx-quill'
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -39,7 +39,7 @@ import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { Step3Component } from './design_bracelet/step3/step3.component';
 import { SizeDetectorComponent } from './size-detector/size-detector.component';
 import { EditComponent } from './admin/edit/edit.component';
-import {MatTooltipModule} from '@angular/material';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { ToastGlobalComponent } from './toast-global/toast-global.component';
 import { ToastsContainer } from './toasts-container/toasts-container.component';
 import { AdminNavComponent } from './admin/admin-nav/admin-nav.component';

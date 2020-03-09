@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 import { debounce, debounceTime } from 'rxjs/operators';
 import { Title }     from '@angular/platform-browser';
 import {TooltipPosition} from '@angular/material/tooltip';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { trigger, state, transition, style, animate } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
 declare var FB: any;
