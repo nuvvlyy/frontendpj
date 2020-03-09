@@ -1,0 +1,16 @@
+<div *ngIf="bracelet_img">
+<div class="card mx-auto mb-5 p-5 text-center">
+  <div class="row">
+    <div class="col-auto">
+      <img src="{{bracelet_img}}">
+      <a #downloadLink ></a>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <button type="button" class="btn btn-blue" (click)="onDownload()">บันทึกรูปภาพ</button>
+    </div>
+  </div>
+</div>
+
+</div>

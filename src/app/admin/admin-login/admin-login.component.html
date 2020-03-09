@@ -1,0 +1,20 @@
+<app-admin-nav></app-admin-nav>
+
+<div class="card text-center mx-auto mt10 shadow-sm p-3 mb-5 bg-white rounded">
+
+    <div class="card-body ">
+        <h5 class="card-title">ลงชื่อเข้าใช้ สำหรับผู้ดูแลระบบ</h5>
+        <div >
+            <div class="form-group mb-3">
+
+                <input type="email" class="form-control" [(ngModel)]="username" placeholder="ชื่อผู้ใช้">
+            </div>
+            <div class="form-group  mb-3">
+                <input type="password" class="form-control" [(ngModel)]="password" placeholder="รหัสผ่าน">
+            </div>
+            <button type="submit" (click)="onSubmit()" class="btn btn-blue w200">ลงชื่อเข้าใช้</button>
+
+        </div>
+    </div>
+
+</div>

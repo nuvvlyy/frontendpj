@@ -1,0 +1,95 @@
+<app-admin-nav></app-admin-nav>
+
+<div *ngIf="!isLoading">
+     <div class="container " *ngIf="stoneItems.length">
+        <div class="row d-flex justify-content-end mt10">
+            <div class="col-12 col-sm-4 col-xl-3 col-sm ">
+                <ng-select class="icon" [items]="stoneItems" placeholder="&#xF002; ค้นหาหินสี" bindLabel="stone_name_th"
+                    autofocus bindValue="id" (change)="itemSelected($event)">
+                </ng-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-4 col-xl-3 mt-4" *ngFor="let stone of stoneItems">
+                <div class="card card-item" >
+                    <i class="fas fa-trash-alt" (click)="open(addStoneModal,stone)"
+                       matTooltip="ลบข้อมูลของหิน"
+                       [matTooltipPosition]="'above'"></i>
+                    <i class="fas fa-edit"
+                       matTooltip="แก้ไขข้อมูลหิน"
+                       [matTooltipPosition]="'above'" (click)="router.navigate(['admin/edit/' + stone.id])"></i>
+<!--                    <img class="card-img-top" [src]="url(stone)">-->
+<!--                    <div class="card-body" (click)="redirect(stone.id)">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-2 ">-->
+<!--                                <img class="stone-img" [src]="urlsm(stone.stone_img_sm)">-->
+<!--                            </div>-->
+<!--                            <div class="col-10">-->
+<!--                                <h5 class="card-title">{{ stone.stone_name_th || '-'}} <div class="sub-title">-->
+<!--                                        {{ stone.stone_name_en || '-' }} </div>-->
+<!--                                </h5>-->
+<!--                                &lt;!&ndash; <small class="">สี {{ stone.color || '-' }}</small> &ndash;&gt;-->
+<!--                                &lt;!&ndash; <p class="card-text">{{ stone.description || "-"}}</p> &ndash;&gt;-->
+<!--                                <label class="card-text">{{  " รายละเอียด "}}</label>-->
+<!--                            </div>-->
+<!--    -->
+<!--                        </div>-->
+
+<!--                    </div>-->
+                  <div class="thumbnail card-img-top ">
+                    <img class="card-img-top portrait" [src]="url(stone)">
+                  </div>
+                  <div class="card-body" (click)="redirect(stone.id)">
+                    <div class="row">
+                      <div class="col-2 ">
+                        <img class="stone-img" [src]="urlsm(stone.stone_img_sm)">
+                      </div>
+                      <div class="col-10">
+                        <h5 class="card-title mb-0">{{ stone.stone_name_th || '-'}} <div class="sub-title">
+                          {{ stone.stone_name_en || '-' }} </div>
+                        </h5>
+                        <p class="card-text text-end"><small class="text-muted">สี : {{ stone.color || '-'}}</small>
+                        </p>
+                        <!-- <small class="">สี {{ stone.color || '-' }}</small> -->
+                        <!-- <p class="card-text">{{ stone.description || "-"}}</p> -->
+                      </div>
+                      <div class="col">
+                        <small class="card-text font-weight-bold">รายละเอียดของหิน</small>
+
+                        <small class="card-text des-text">{{ stone.description || " - "}}</small>
+                        <!-- <small class="card-text des-text mt-2">รายละเอียดของหิน..</small> -->
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="container" *ngIf="!stoneItems.length">
+        คุณไม่มีรายการหิน
+    </div>
+</div>
+<app-loading *ngIf="isLoading"></app-loading>
+
+<ng-template #addStoneModal let-c="close" let-d="dismiss" >
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">ลบหิน</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong> คุณต้องการลบหิน  <span class="text-danger">{{stone.stone_name_th || '-' }}</span> ใช่มั้ย ?</strong></p>
+    <p>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="d('cancel click')">ยกเลิก</button>
+    <button type="button" class="btn btn-danger" (click)="remove(stone.id)">ตกลง</button>
+  </div>
+</ng-template>

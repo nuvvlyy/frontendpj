@@ -1,0 +1,20 @@
+nav{
+  background-color: #154360;
+  .nav-item{
+    color: aliceblue;
+  }
+  .fas.nav-icon,
+  .far.nav-icon{
+    color: aliceblue;
+    &:hover{
+      color: #3b7091;
+    }
+  }
+  .dropdown-item.fas{
+    color: black;
+  }
+  &:hover{
+    cursor: pointer;
+
+  }
+}

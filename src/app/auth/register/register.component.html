@@ -1,0 +1,61 @@
+<div class="card mx-auto mt10 shadow-sm p-3 mb-5 bg-white rounded">
+
+    <div class="card-body ">
+        <h5 class="card-title mb-0 text-center">สมัครสมาชิก</h5>
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">ชื่อจริง</label>
+                    <input type="email" class="form-control" [(ngModel)]="first_name" placeholder="ชื่อจริง">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">นามสกุล</label>
+                    <input type="password" class="form-control" [(ngModel)]="last_name" placeholder="นามสกุล">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputEmail4">อีเมล</label>
+                    <input type="email" class="form-control" id="inputEmail4" [(ngModel)]="email" placeholder="อีเมล">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputEmail4">ชื่อผู้ใช้งาน</label>
+                    <input type="text" class="form-control" id="inputEmail4" [(ngModel)]="username"
+                        placeholder="ชื่อผู้ใช้งาน">
+                </div>
+
+
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">รหัสผ่าน</label>
+                    <input type="password" class="form-control" id="inputPassword4" [(ngModel)]="password"
+                        placeholder="รหัสผ่าน">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">ยืนยันรหัสผ่าน</label>
+                    <input type="password" class="form-control" id="inputPassword4" [(ngModel)]="password2"
+                        placeholder="ยืนยันรหัสผ่าน">
+                    <small class="">รหัสผ่านไม่ถูกต้อง</small>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputPassword4">วันเดือนปีเกิดของคุณ</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker"
+                            [(ngModel)]="dateOfBirth">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                type="button"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">สมัครสมาชิก</button>
+        </form>
+    </div>
+</div>

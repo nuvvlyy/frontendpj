@@ -1,0 +1,44 @@
+
+i{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color:#B8817D;
+    
+        &:hover{
+            cursor: pointer;
+            color:#E36145;
+        }
+    
+
+    
+}
+
+.card-img-top{
+    height: 200px;
+}
+.card-body{
+    &:hover{
+        cursor: pointer;
+        opacity: 0.75;
+        filter: alpha(opacity=75); 
+        
+    }
+}
+ng-select.icon {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
+.des-text{
+    display:block; 
+    height: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.stone-img{
+    width:20px;
+    height: 20px;
+}

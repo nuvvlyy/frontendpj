@@ -1,0 +1,51 @@
+<div class="card mx-auto mt10 shadow-sm p-3 mb-5 bg-white rounded">
+
+    <div class="card-body ">
+        <h5 class="card-title mb-0">ประวัติส่วนตัว</h5>
+        <!-- <p class="card-text">ยินดีต้อนรับ โปรดลงชื่อเข้าใช้</p> -->
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label >ชื่อจริง</label>
+                    <input type="text" name="inputFristName" class="form-control" [(ngModel)]="uFristName" placeholder="ชื่อจริง">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">นามสกุล</label>
+                    <input type="text"name="inputLastName" class="form-control" [(ngModel)]="uLastName" placeholder="นามสกุล">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label >Email</label>
+                    <input type="email" class="form-control" name="inputEmail" [(ngModel)]="uEmail" placeholder="Email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label >วันเดือนปีเกิดของ</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                            #d="ngbDatepicker" [(ngModel)]="uDateOfBirth" (onChange)="display($event)">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (onChange)="display($event)" (click)="d.toggle()"
+                                type="button"></button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div *ngIf="!fbUserType()">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                </div>
+            </div>
+</div>
+            <button type="submit" class="btn btn-primary">Sign in</button>
+        </form>
+    </div>
+</div>

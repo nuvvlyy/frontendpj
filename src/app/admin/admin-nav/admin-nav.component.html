@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light justify-content-end">
+  <div class="mr-4 mt-4 d-flex align-items-baseline">
+
+    <a class="navbar-brand mr-3 " href="/admin/add">
+      <i class="fas fa-plus-circle nav-icon"
+         matTooltip="เพิ่มหินชนิดใหม่"
+         [matTooltipPosition]="'left'"></i>
+    </a>
+    <a class="navbar-brand mr-3 " href="/admin">
+      <i class="far fa-list-alt nav-icon"
+         matTooltip="หินทั้งหมด"
+         [matTooltipPosition]="'left'"></i>
+    </a>
+
+    <div class="navbar-brand mr-3 " (click)="logOut()">
+      <i class="fas fa-sign-out-alt nav-icon"
+         matTooltip="ออกจากระบบ"
+         [matTooltipPosition]="'left'"></i>
+    </div>
+  </div>
+</nav>

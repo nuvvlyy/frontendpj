@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+
+<div *ngIf="!isLoading">
+
+    <div class="container " *ngIf="stoneItems.length">
+        <div class="row d-flex justify-content-end mt10">
+        <div class="col-12 col-sm-4 col-xl-3 col-sm ">
+            <ng-select class="icon" [items]="stoneItems" placeholder="&#xF002; ค้นหาหินสี" bindLabel="stone_name_th"
+                autofocus bindValue="id" (change)="itemSelected($event)">
+            </ng-select>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-12 col-sm-4 col-xl-3 mt-4" *ngFor="let stone of stoneItems; let i = index">
+
+                <div class="card card-item">
+                    <i *ngIf="stone.fav" class="fas fa-heart" (click)="addFav(stone.id,i)"
+                       matTooltip="นำออกจากรายการโปรด"
+                       [matTooltipPosition]="'above'"></i>
+
+                    <i *ngIf="!stone.fav" class="far fa-heart fa-lg" (click)="addFav(stone.id,i)"></i>
+                    <img class="card-img-top" [src]="url(stone.stone_img)">
+                    <div class="card-body" (click)="redirect(stone.id)">
+                        <div class="row">
+                            <div class="col-2 ">
+                                <img class="stone-img" [src]="urlsm(stone.stone_img_sm)">
+                            </div>
+                            <div class="col-10">
+                                <h5 class="card-title mb-0">{{ stone.stone_name_th || '-'}} <div class="sub-title">
+                                        {{ stone.stone_name_en || '-' }} </div>
+                                </h5>
+                                 <p class="card-text text-end"><small class="text-muted">สี : {{ stone.color || '-'}}</small></p>
+                                <!-- <small class="">สี {{ stone.color || '-' }}</small> -->
+                                <!-- <p class="card-text">{{ stone.description || "-"}}</p> -->
+                            </div>
+                            <div class="col">
+                                <small class="card-text font-weight-bold">รายละเอียดของหิน</small>
+
+                                <small class="card-text des-text">{{ stone.description || " - "}}</small>
+                                <!-- <small class="card-text des-text mt-2">รายละเอียดของหิน..</small> -->
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="container" *ngIf="!stoneItems.length">
+        คุณไม่มีรายการที่ชื่นชอบ
+    </div>
+</div>
+<app-loading *ngIf="isLoading"></app-loading>
