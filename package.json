@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "luckystonepj",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --prod"
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
@@ -61,17 +61,19 @@
     "save-dev": "0.0.1-security",
     "tslib": "^1.10.0",
     "typescript": "~3.7.5",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "@angular/cli": "^9.0.5"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.803.6",
+    "@angular-devkit/build-angular": "~0.900.5",
     "@angular/cli": "^9.0.5",
+    "@angular/compiler-cli": "^9.0.5",
     "@angular/language-service": "~9.0.5",
     "@ckeditor/ckeditor5-build-classic": "latest",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "~8.9.4",
-    "codelyzer": "^5.0.0",
+    "@types/node": "^12.11.1",
+    "codelyzer": "^5.1.2",
     "d3": "^4.10.2",
     "d3-array": "^1.2.1",
     "d3-brush": "^1.0.4",
