@@ -30,6 +30,8 @@
     "@kolkov/angular-editor": "^1.0.2",
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",
     "@ng-select/ng-select": "^3.0.7",
+    "@types/deep-equal": "^1.0.1",
+    "@types/extend": "^3.0.1",
     "@types/quill": "^2.0.3",
     "angular-svg-icon": "^8.0.0",
     "angularx-social-login": "^2.2.1",
