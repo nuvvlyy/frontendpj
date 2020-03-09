@@ -17,7 +17,7 @@
                        [matTooltipPosition]="'above'"></i>
                     <i class="fas fa-edit"
                        matTooltip="แก้ไขข้อมูลหิน"
-                       [matTooltipPosition]="'above'" (click)="router.navigate(['admin/edit/' + stone.id])"></i>
+                       [matTooltipPosition]="'above'" (click)="gotoStone(stone.id)"></i>
 <!--                    <img class="card-img-top" [src]="url(stone)">-->
 <!--                    <div class="card-body" (click)="redirect(stone.id)">-->
 <!--                        <div class="row">-->

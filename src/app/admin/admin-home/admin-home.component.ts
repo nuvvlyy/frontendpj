@@ -80,5 +80,8 @@ remove(id){
       duration: 4000,
     });
   }
+  gotoStone(id){
+    return this.router.navigate(['admin/edit/' + id])
+  }
 
 }
