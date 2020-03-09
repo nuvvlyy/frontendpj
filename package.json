@@ -27,6 +27,7 @@
     "@ckeditor/ckeditor5-angular": "^1.1.2",
     "@dimpu/ngx-quill": "^7.0.10",
     "@fortawesome/fontawesome-free": "^5.11.2",
+    "@fullcalendar/core": "^4.4.0",
     "@kolkov/angular-editor": "^1.0.2",
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",
     "@ng-select/ng-select": "^3.0.7",
