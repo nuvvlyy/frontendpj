@@ -2,8 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ApiService } from '../../service/api.service';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from "angularx-social-login";
-import { FacebookLoginProvider} from "angularx-social-login";
+
 
 declare var FB: any;
 
@@ -21,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private api: ApiService,
               private router: Router,
-              private authService: AuthService) { }
+              ) { }
 
   ngOnInit() {
     let email = localStorage.getItem('email');
@@ -50,13 +49,7 @@ export class LoginComponent implements OnInit {
     }(document, 'script', 'facebook-jssdk'));
   }
 
-  // signInWithFB(): void {
-  //   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  // }
-  //
-  // signOut(): void {
-  //   this.authService.signOut();
-  // }
+
 
   submitLogin() {
 
