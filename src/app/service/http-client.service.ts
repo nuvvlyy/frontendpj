@@ -14,7 +14,7 @@ export class HttpClientService {
               private router: Router) {
     this.httpHeaders.append('Content-Type', 'application/json');
     this.httpHeaders.append('Accept', 'application/json');
-    this.httpHeaders.append('Access-Control-Allow-Origin', 'http://localhost:8000');
+    this.httpHeaders.append('Access-Control-Allow-Origin', 'https://luckystoneadmin-api.herokuapp.com/');
     this.httpHeaders.append('Access-Control-Allow-Credentials', 'true');
     this.httpHeaders.append("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
     // this.httpHeaders.append("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
@@ -38,7 +38,7 @@ export class HttpClientService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data')
     headers.append('Access-Control-Allow-Headers', 'Content-Type');
-    headers.append('Access-Control-Allow-Origin', 'http://localhost:8000');
+    headers.append('Access-Control-Allow-Origin', 'https://luckystoneadmin-api.herokuapp.com/');
     return await this.to(this.http.post(url,data,{headers: headers}))
   }
   async delete(url,id): Promise<Observable<any>>{
