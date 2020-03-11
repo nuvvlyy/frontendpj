@@ -4,7 +4,7 @@ import { concat } from  'rxjs';
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {colors} from '@angular/cli/utilities/color';
-import {NgbModalRef, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModalRef, NgbModal, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -83,7 +83,8 @@ export class AddComponent implements OnInit {
               private elementRef: ElementRef,
               private modalService: NgbModal,
               private router: Router,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private  date: NgbDateParserFormatter,) {
   }
   ngOnInit() {
     if(localStorage.getItem('user_type')!="admin"){

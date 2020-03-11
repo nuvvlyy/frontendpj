@@ -1,92 +1,148 @@
 <div class="card mx-auto p-5 mb-5 text-center">
-    <!-- <div class="border-right"></div> -->
-    <div *ngIf="!isLoading">
+  <!-- <div class="border-right"></div> -->
+  <div *ngIf="!isLoading">
+    <div class="row">
+      <div class="col-md-4 col-12">
+
         <div class="row">
-            <div class="col-md-4 col-12">
+          <div class="m-3 ml-3">
+            <button type="button" [class.active]="isActive('btn3')" (click)="setActive('btn3')"
+                    class="btn btn-light col-4">เหมาะสำหรับคุณ
+            </button>
+            <button type="button" [class.active]="isActive('btn1')" (click)="setActive('btn1')"
+                    class="btn btn-light col-4">หินทั้งหมด
+            </button>
+            <button type="button" [class.active]="isActive('btn2')" (click)="setActive('btn2')"
+                    class="btn btn-light col-4"
+            >ที่ชื่นชอบ
+            </button>
+          </div>
 
-                <div class="row">
-                    <div class="m-3 ml-3">
-                        <button type="button"[class.active]="isActive('btn1')" (click)="setActive('btn1')" class="btn btn-light mr-5">หินทั้งหมด</button>
-                        <button type="button" [class.active]="isActive('btn2')" (click)="setActive('btn2')"class="btn btn-light">ที่ชื่นชอบ</button>
-                    </div>
-
-                </div>
-                <div *ngIf="!isFav">
-                    <div class="row">
-                        <div *ngFor="let i of stoneItems;let r = index">
-                            <div class="col-sm-2" *ngIf="stoneItems[r]&&stoneItems[r].stone_img_sm"  placement="top" ngbTooltip="{{stoneItems[r].stone_name_th}}">
-                                <img class="img-stone w30 my2" (click)="onClickStone(stoneItems[r],r)" [src]="urlsm(stoneItems[r].stone_img_sm)">
-                            </div>
-                        </div>
-                </div>
-            </div>
-            <div *ngIf="isFav">
-
-                    <div class="row"><div *ngFor="let in of favStones;let r = index" >
-                            <div class="col-auto" *ngIf="favStones[r]&&favStones[r].stone_img_sm" tooltipClass="" placement="top" ngbTooltip="{{favStones[r].stone_name_th}}">
-                                <img class="img-stone w30 my2" (click)="onClickStone(favStones[r],r)" [src]="urlsm(favStones[r].stone_img_sm)">
-                            </div>
-
-
-
-                    </div>
-                </div>
-            </div>
-            </div>
-
-        <div class="col-md-8 col-12 d-flex justify-content-center"  style="background-color: #ffffff;background-size: 600px;overflow:auto;" #bracelet >
+        </div>
+        <div *ngIf="isActive('btn1')">
           <div class="row">
-            <div class="col-auto">
-            <ul class="circle-container-{{numOfStones}} circle-size-{{wristsize}} item-size{{stoneSize}}" >
+            <div *ngFor="let i of stoneItems;let r = index">
+              <div class="col-sm-2" *ngIf="stoneItems[r]&&stoneItems[r].stone_img_sm" placement="top"
+                   ngbTooltip="{{stoneItems[r].stone_name_th}}">
+                <img class="img-stone w30 my2" (click)="onClickStone(stoneItems[r],r)"
+                     [src]="urlsm(stoneItems[r].stone_img_sm)">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isActive('btn2')">
+
+          <div class="row">
+            <div *ngIf="uid">
+              <div *ngFor="let in of favStones;let r = index">
+                <div class="col-auto" *ngIf="favStones[r]&&favStones[r].stone_img_sm" tooltipClass="" placement="top"
+                     ngbTooltip="{{favStones[r].stone_name_th}}">
+                  <img class="img-stone w30 my2" (click)="onClickStone(favStones[r],r)"
+                       [src]="urlsm(favStones[r].stone_img_sm)">
+                </div>
+
+
+              </div>
+            </div>
+            <div *ngIf="!uid">
+              เข้าสู่ระบบเพื่อใช้โหมดนี้
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isActive('btn3')">
+
+          <div class="row">
+            <div *ngIf="uid">
+              <div *ngFor="let in of stoneSuggest;let r = index">
+                <div class="col-auto" *ngIf="stoneSuggest[r]&&stoneSuggest[r].stone_img_sm" tooltipClass=""
+                     placement="top" ngbTooltip="{{stoneSuggest[r].stone_name_th}}">
+                  <img class="img-stone w30 my2" (click)="onClickStone(stoneSuggest[r],r)"
+                       [src]="urlsm(stoneSuggest[r].stone_img_sm)">
+                </div>
+
+
+              </div>
+            </div>
+            <div *ngIf="!uid">
+              เข้าสู่ระบบเพื่อใช้โหมดนี้
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8 col-12 d-flex justify-content-center"
+           style="background-color: #ffffff;background-size: 600px;overflow:auto;" #bracelet>
+        <div class="row">
+          <div class="col-auto">
+            <ul class="circle-container-{{numOfStones}} circle-size-{{wristsize}} item-size{{stoneSize}}">
               <!--                <ul class="circle-container-8">-->
               <div *ngFor="let in of bubble;let r = index">
                 <!--                    <li   (click)="onBubbleClick(r)"><img [src]="getSrc(bubble[r].img)"></li>-->
-                <li  *ngIf="!in.active" (click)="onBubbleClick(r)"><img style="background-color: white" [src]="getSrc(bubble[r].img)"></li>
-                <li *ngIf="in.active" (click)="onBubbleClick(r)"><img style="background-color: white" class="active" [src]="getSrc(bubble[r].img)"></li>
+                <li *ngIf="!in.active" (click)="onBubbleClick(r)"><img style="background-color: white"
+                                                                       [src]="getSrc(bubble[r].img)"></li>
+                <li *ngIf="in.active" (click)="onBubbleClick(r)"><img style="background-color: white" class="active"
+                                                                      [src]="getSrc(bubble[r].img)"></li>
               </div>
             </ul>
 
-            </div>
-
-            <div class="col  d-flex justify-content-end" >
-              <ul class="ml-2"  style="float:right; text-align:left; list-style:none;">
-<!--                <li> <div class="btn btn-dark" (click)="selectAll()"> เลือกทั้งหมด</div> </li>-->
-                <div *ngFor="let in of stoneItems;">
-
-                <li *ngIf="in.num>0" ><img  class="w20 mr-1" [src]="getSrc(in.stone_img_sm)">{{in.stone_name_th}} x {{in.num}}</li>
-                </div>
-              </ul>
-            </div>
           </div>
 
-        </div>
-<!--        <button type="button" class="btn btn-blue" (click)="convertToImage()">convertToImage</button>-->
+          <div class="col  d-flex justify-content-end">
 
+            <ul class="ml-2" style="float:right; text-align:left; list-style:none;">
+              <div class="d-flex flex-column">
+                <p class="my-0">ขนาดข้อมือ {{wristSize}} เซนติเมตร</p>
+                <p class="my-0">ขนาดหิน {{stoneSize}} มิลลิเมตร</p>
+                <p class="my-0">จำนวนหินทั้งหมด {{numOfStones}} เม็ด</p>
+              </div>
+              <div *ngFor="let in of stoneItems;">
 
-        </div>
-
-
-
-      <div class="row">
-        <div class="col-md-4">
-
-        </div>
-        <div class="col-auto mx-auto">
-          <div class="my-4 ">
-            <input type="checkbox" (click)="selectAll($event)" [(ngModel)]="isCheck"   id="fluency" /> เลือกทั้งหมด
+                <li *ngIf="in.num>0"><img class="w20 mr-1" [src]="getSrc(in.stone_img_sm)">{{in.stone_name_th}}
+                  x {{in.num}}</li>
+              </div>
+            </ul>
           </div>
+        </div>
+
+      </div>
+      <!--        <button type="button" class="btn btn-blue" (click)="convertToImage()">convertToImage</button>-->
+
+
+    </div>
+
+
+    <div class="row justify-content-center mx-auto">
+
+      <div class="col-auto">
+
+        <div class="my-4 ">
+          <div class="btn btn-dark mr-2" (click)="shuffle()">
+            สุ่มแบบหิน
+          </div>
+
         </div>
       </div>
-      <div class="row d-flex justify-content-center">
-        <div class="col-auto">
-          <button type="button" class="btn btn-blue"  (click)="previous()">ขั้นตอนแรก</button></div>
-        <div class="col-auto">
-          <button type="button" class="btn btn-blue" (click)="next()">ขั้นตอนสุดท้าย</button>
+      <div class="col-auto ">
+        <div class="my-4 align-items-end flex-column">
+          <div class="d-flex align-items-start flex-column">
+            <span><input type="checkbox" (click)="selectAll($event)" [(ngModel)]="isCheck" id="fluency"/> เลือกทั้งหมด</span>
+            <small>ทำเครื่องหมายในช่องนี้เพื่อใช้หินเม็ดเดียวกันทั้งเส้น</small>
+          </div>
         </div>
       </div>
     </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-auto">
+        <button type="button" class="btn btn-blue" (click)="previous()">ขั้นตอนแรก</button>
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-blue" (click)="next()">ขั้นตอนสุดท้าย</button>
+      </div>
+    </div>
+  </div>
 
-<!--    {{ numOfStones }}-->
-<!--    {{ radius }}-->
+  <!--    {{ numOfStones }}-->
+  <!--    {{ radius }}-->
 
 </div>
