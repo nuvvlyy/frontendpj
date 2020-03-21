@@ -85,7 +85,7 @@ export class ApiService {
     }));
   }
   postStone(data){
-    return from(this.http.post(this.api_URL.stone+'/', data).then(response => {
+    return from(this.http.postjson(this.api_URL.stone+'/', data).then(response => {
       return response;
     }));
   }
