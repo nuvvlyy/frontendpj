@@ -16,6 +16,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxQuillModule } from '@dimpu/ngx-quill'
+import { TSMap } from 'typescript-map'
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -116,6 +118,7 @@ const fbLoginOptions: LoginOpt = {
     //   }
     // }),
     // domtoimage,
+    // TSMap,
     BrowserModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
@@ -139,6 +142,7 @@ const fbLoginOptions: LoginOpt = {
     RouterModule.forRoot(
       appRoutes
     ),
+
     NgbModule,
     EditorModule,
     MatTooltipModule,
