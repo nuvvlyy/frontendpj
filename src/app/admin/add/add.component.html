@@ -30,13 +30,13 @@
       </div>
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
           <label>ดวงดาวที่อยู่ภายใต้อิทธิพล <span class="text-danger">*</span></label>
 
           <ng-select [items]="star" placeholder="ดวงดาวที่อยู่ภายใต้อิทธิพล" bindLabel="name"  bindValue="id" [clearable]="false" [(ngModel)]="stone.star" [ngModelOptions]="{standalone: true}"  ></ng-select>
 
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
           <label>คุณสมบัติ</label>
 
           <ng-select [items]="attributeItems"
@@ -48,10 +48,34 @@
                      [ngModelOptions]="{standalone: true}"
                      [multiple]="true"
                      [closeOnSelect]="false"
-                     [searchable]="true"
+                     [searchFn]="true"
                      [hideSelected]="true"
-                     (change)="onChange()"
+
           ></ng-select>
+
+        </div>
+        <div class="form-group col-md-3">
+          <label>ปีนักษัตริย์ที่เหมาะสม</label>
+
+          <ng-select [items]="zodiacItem"
+                     placeholder="ปีนักษัตริย์ที่เหมาะสม"
+                     bindLabel="name_th"
+                     bindValue="id"
+                     [(ngModel)]="stone.zodiac"
+                     [ngModelOptions]="{standalone: true}"
+                     [searchFn]="true"
+
+          ></ng-select>
+
+        </div>
+        <div class="form-group col-md-3">
+          <label>หินที่ไม่ควรอยู่ด้วยกัน <span class="text-danger">*</span></label>
+
+          <ng-select [items]="stoneItem" placeholder="หินที่ไม่ควรอยู่ด้วยกัน" bindLabel="stone_name_th" bindValue="id"
+                     [clearable]="false" [(ngModel)]="stone.notusewith" [ngModelOptions]="{standalone: true}"
+                     [hideSelected]="true"[multiple]="true"
+                     [closeOnSelect]="false"
+                     [searchable]="true"></ng-select>
 
         </div>
       </div>
@@ -120,7 +144,7 @@
       </p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="d('cancel click')">ยกเลิก</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="cancel()">ยกเลิก</button>
       <button type="button" class="btn btn-success" (click)="onSubmit()">ตกลง</button>
     </div>
   </ng-template>

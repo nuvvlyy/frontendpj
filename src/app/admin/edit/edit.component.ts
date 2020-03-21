@@ -5,7 +5,10 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-
+import {forEach} from '@angular-devkit/schematics';
+import {datepickerAnimation} from 'ngx-bootstrap/datepicker/datepicker-animations';
+import {json} from 'express';
+import { TSMap } from "typescript-map";
 
 interface Stone {
   stone_name_th:string;
@@ -19,6 +22,8 @@ interface Stone {
   attribute: any;
   stone_img:any;
   stone_img_sm:any;
+  notusewith:any;
+  zodiac:any
 }
 @Component({
   selector: 'app-edit',
@@ -27,11 +32,13 @@ interface Stone {
 })
 export class EditComponent implements OnInit {
 
+  stoneItem
   modal ; NgbModalRef;
   stone_id;
   private routeSub: Subscription;
   isLoading = true
   stone = {} as Stone;
+  temp_stone:Stone[] =[];
   text;
   star;
   attributeItems;
@@ -64,6 +71,9 @@ export class EditComponent implements OnInit {
   previewUrl:any = null;
   previewUrl2:any = null;
   formdata = new FormData();
+  stone_notuse:any;
+  zodiacItem
+  stoneEdit = new TSMap();
   logChange($event) {
     this.stone.description =$event.html
     // console.log(this.editor);
@@ -82,38 +92,43 @@ export class EditComponent implements OnInit {
     if(localStorage.getItem('user_type')!="admin"){
       return this.router.navigate(['/admin/login']);
     }
+    this.getZodiacItem()
     this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '' ;
     this.getStar();
     this.getAttributeList();
     this.routeSub = this.route.params.subscribe(param => {
       this.stone_id =param.id;
-      this.api.getStoneDetail(param.id).subscribe(
+      this.api.getStone().subscribe(
         data => {
+          let ind = data.result.results.findIndex(data=>data.id == this.stone_id);
+          this.stone_notuse =data.result.results[ind].notusewith
+          this.stone = data.result.results[ind]
+          this.temp_stone[0] = this.stone
+          this.stoneItem = data.result.results;
+          this.stoneItem.splice(ind,1);
           // @ts-ignore
-          this.stone = data.result;
+          if(this.stone.stone_img){
+            // @ts-ignore
+            this.previewUrl = this.stone.stone_img;
+          }
+          // @ts-ignore
+          if(this.stone.stone_img_sm){
+            // @ts-ignore
+            this.previewUrl2 = this.stone.stone_img_sm;
+          }
           this.isLoading = false;
-          // @ts-ignore
-          if(data.result.stone_img){
-            // @ts-ignore
-            this.previewUrl = data.result.stone_img;
-          }
-          // @ts-ignore
-          if(data.result.stone_img_sm){
-            // @ts-ignore
-            this.previewUrl2 = data.result.stone_img_sm;
-          }
-          // @ts-ignore
-          // if(data.result.star){
-          //   // @ts-ignore
-          //   this.stone.star = data.result.star.id
-          // }
-          console.log(data)
+          console.log(this.stoneItem)
         },
         error => {
           console.log(error)
         }
 
       );
+    })
+  }
+  getZodiacItem(){
+    this.api.getZodiac().subscribe(value => {
+      this.zodiacItem = value['result'].results
     })
   }
 
@@ -163,18 +178,39 @@ export class EditComponent implements OnInit {
     })
   }
   onSubmit(){
-    // console.log(this.formdata)
-    // this.formdata.forEach((value1, key) => {
-    //   console.log(value1,key)
-    // })
-    // var form_data = new FormData();
-    // for ( var key in this.stone ) {
-    //   form_data.append(key, this.stone[key]);
-    // }
-    this.api.editStone(this.stone_id,this.formdata).subscribe(value =>{
+    this.api.editStone(this.stone_id,this.stoneEdit.toJSON()).subscribe(value =>{
+
+      let remove= this.stone_notuse.filter(x => !this.stone.notusewith.includes(x))
+        let  add = this.stone.notusewith.filter(x => !this.stone_notuse.includes(x));
+        console.log(this.stone.notusewith);
+        console.log(this.stone_notuse);
+        console.log(add);
+        console.log(remove);
+        for (let addKey in add) {
+          let stone = {
+            // @ts-ignore
+            notusewith : [value.result.id]
+          };
+          this.api.editStone(add[addKey],JSON.stringify(stone)).subscribe(value1 => {
+            console.log(value1);
+          })
+        }
+        for (let removeKey in remove) {
+          let i = this.stoneItem.findIndex((element) => element.id == remove[removeKey]);
+          let j = this.stoneItem[i].notusewith.findIndex((element) => element == this.stone_id);
+          this.stoneItem[i].notusewith.splice(j, 1);
+          console.log(this.stoneItem[i].notusewith)
+          let stone = {
+            // @ts-ignore
+            notusewith : this.stoneItem[i].notusewith
+          };
+          this.api.editStone(remove[removeKey],JSON.stringify(stone)).subscribe(value1 => {
+            console.log(value1);
+          })
+        }
         // @ts-ignore
         this.openSnackBar("แก้ไขข้อมูลหิน "+value.result.stone_name_th+" เรียบร้อยแล้ว",value.result.id)
-
+// console.log(value)
         this.modal = this.modalService.dismissAll()
     }
       // console.log(value)
@@ -184,7 +220,19 @@ export class EditComponent implements OnInit {
     this.modal = this.modalService.open(content)
   }
   onChange(name,value){
-    this.formdata.append(name,value)
+
+    if(name == "description"){
+      this.stoneEdit.set(name,value);
+      this.stoneEdit.set("dis_description",value.text);
+    }else
+      this.stoneEdit.set(name,value);
+    console.log(value)
+
+  }
+  onChangeDis($event){
+    // console.log($event)
+      this.stoneEdit.set("description",$event.html);
+      this.stoneEdit.set("dis_description",$event.text);
 
   }
   openSnackBar(massage,id) {
@@ -194,6 +242,12 @@ export class EditComponent implements OnInit {
     snackBarRef.onAction().subscribe(value => {
       this.router.navigate(['/detail/' + id])
     })
+  }
+  cancel(){
+    this.modal = this.modalService.dismissAll()
+    // this.stone = this.temp_stone
+    console.log(this.temp_stone)
+    console.log(this.stone_notuse)
   }
 
 }

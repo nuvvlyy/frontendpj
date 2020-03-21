@@ -5,39 +5,46 @@
 
     <div class="card-body ">
       <h5 class="card-title  text-center">แก้ไขหินนำโชค</h5>
-      <form *ngIf="star && !isLoading"  >
+      <form *ngIf="star && !isLoading">
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>ชื่อภาษาไทย <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="ชื่อภาษาไทย" [ngModelOptions]="{standalone: true}" [(ngModel)]="stone.stone_name_th" (change)="onChange('stone_name_th',stone.stone_name_th)">
+            <input type="text" class="form-control" placeholder="ชื่อภาษาไทย" [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="stone.stone_name_th" (change)="onChange('stone_name_th',stone.stone_name_th)">
           </div>
           <div class="form-group col-md-6">
             <label>ชื่อภาษาอังกฤษ <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="ชื่อภาษาอังกฤษ"  [ngModelOptions]="{standalone: true}"  [(ngModel)]="stone.stone_name_en" (change)="onChange('stone_name_en',stone.stone_name_en)">
+            <input type="text" class="form-control" placeholder="ชื่อภาษาอังกฤษ" [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="stone.stone_name_en" (change)="onChange('stone_name_en',stone.stone_name_en)">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-4">
             <label>ชื่อโบราณ</label>
-            <input type="text" class="form-control" placeholder="ชื่อโบราณ"  [ngModelOptions]="{standalone: true}"  [(ngModel)]="stone.ancient_name" (change)="onChange('ancient_name',stone.ancient_name)">
+            <input type="text" class="form-control" placeholder="ชื่อโบราณ" [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="stone.ancient_name" (change)="onChange('ancient_name',stone.ancient_name)">
           </div>
           <div class="form-group col-md-4">
             <label>สีของหิน <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="สีของหิน"  [ngModelOptions]="{standalone: true}"  [(ngModel)]="stone.color" (change)="onChange('color',stone.color)">
+            <input type="text" class="form-control" placeholder="สีของหิน" [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="stone.color" (change)="onChange('color',stone.color)">
           </div>
           <div class="form-group col-md-4">
             <label>ธาตุ <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="ธาตุ"  [ngModelOptions]="{standalone: true}"  [(ngModel)]="stone.element" (change)="onChange('element',stone.element)">
+            <input type="text" class="form-control" placeholder="ธาตุ" [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="stone.element" (change)="onChange('element',stone.element)">
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-3">
             <label>ดวงดาวที่อยู่ภายใต้อิทธิพล <span class="text-danger">*</span></label>
 
-            <ng-select [items]="star" placeholder="ดวงดาวที่อยู่ภายใต้อิทธิพล" bindLabel="name"  bindValue="id" [clearable]="false" [(ngModel)]="stone.star" [ngModelOptions]="{standalone: true}"  (change)="onChange('star',stone.star)"></ng-select>
+            <ng-select [items]="star" placeholder="ดวงดาวที่อยู่ภายใต้อิทธิพล" bindLabel="name" bindValue="id"
+                       [clearable]="false" [(ngModel)]="stone.star" [ngModelOptions]="{standalone: true}"
+                       (change)="onChange('star',stone.star)"></ng-select>
 
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-3">
             <label>คุณสมบัติ</label>
 
             <ng-select [items]="attributeItems"
@@ -50,7 +57,34 @@
                        [multiple]="true"
                        [closeOnSelect]="false"
                        [searchable]="true"
+                       [hideSelected]="true"
                        (change)="onChange('attribute',stone.attribute)"
+            ></ng-select>
+
+          </div>
+          <div class="form-group col-md-3">
+            <label>หินที่ไม่ควรอยู่ด้วยกัน <span class="text-danger">*</span></label>
+
+            <ng-select [items]="stoneItem" placeholder="หินที่ไม่ควรอยู่ด้วยกัน" bindLabel="stone_name_th" bindValue="id"
+                       [clearable]="false" [(ngModel)]="stone.notusewith" [ngModelOptions]="{standalone: true}"
+                       (change)="onChange('notusewith',stone.notusewith)" [hideSelected]="true"[multiple]="true"
+                       [closeOnSelect]="false"
+                       [searchable]="true"
+                       ></ng-select>
+
+          </div>
+          <div class="form-group col-md-3">
+            <label>ปีนักษัตริย์ที่เหมาะสม</label>
+
+            <ng-select [items]="zodiacItem"
+                       placeholder="ปีนักษัตริย์ที่เหมาะสม"
+                       bindLabel="name_th"
+                       bindValue="id"
+                       [(ngModel)]="stone.zodiac"
+                       [ngModelOptions]="{standalone: true}"
+                       (change)="onChange('zodiac',stone.zodiac)"
+                       [searchFn]="true"
+
             ></ng-select>
 
           </div>
@@ -59,9 +93,9 @@
           <div class="form-group col-md-6">
             <label>รูปภาพของหิน</label>
             <input class="img-button"
-                   type="file" name="image" (change)="fileProgress($event,1)"  />
-            <div class="image-preview my-3" *ngIf="previewUrl" >
-              <img [src]="previewUrl" [width]="200" />
+                   type="file" name="image" (change)="fileProgress($event,1)"/>
+            <div class="image-preview my-3" *ngIf="previewUrl">
+              <img [src]="previewUrl" [width]="200"/>
             </div>
 
           </div>
@@ -69,9 +103,9 @@
           <div class="form-group col-md-6">
             <label>รูปภาพของหิน(เม็ด)</label>
             <input class="img-button" type="file"
-                   (change)="fileProgress($event,2)"  />
+                   (change)="fileProgress($event,2)"/>
             <div class="image-preview my-3 " *ngIf="previewUrl2">
-              <img [src]="previewUrl2 " [width]="20" />
+              <img [src]="previewUrl2 " [width]="20"/>
             </div>
 
           </div>
@@ -81,7 +115,9 @@
         <div class="form-row ">
           <div class="form-group  col-md-6 pb30">
             <label>รายละเอียดของหิน</label>
-            <ngx-quill #editor [options]="modules" (change)="logChange($event)"  [ngModelOptions]="{standalone: true}"  [(ngModel)]="stone.description" (ngModelChange)="onChange('description',stone.description)"></ngx-quill>
+            <ngx-quill #editor [options]="modules" (change)="onChangeDis($event)" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="stone.description"
+            ></ngx-quill>
 
           </div>
           <div class="form-group  col-md-6">
@@ -92,13 +128,14 @@
         </div>
 
         <label>ชื่อวิทยาศาสตร์</label>
-        <label class="ml-2"[innerHTML]="stone.chemical_formula"></label>
+        <label class="ml-2" [innerHTML]="stone.chemical_formula"></label>
 
-        <ngx-quill [options]="modules2"  [ngModelOptions]="{standalone: true}"  [(ngModel)]="stone.chemical_formula" (ngModelChange)="onChange('chemical_formula',stone.chemical_formula)"></ngx-quill>
+        <ngx-quill [options]="modules2" [ngModelOptions]="{standalone: true}" [(ngModel)]="stone.chemical_formula"
+                   (ngModelChange)="onChange('chemical_formula',stone.chemical_formula)"></ngx-quill>
 
         <div class="form-row pt5  ">
           <div class="col-md-12 m-auto">
-            <button type="submit" class="btn btn-primary" (click)="open(addStoneModal)" >แก้ไขข้อมูล</button>
+            <button type="submit" class="btn btn-primary" (click)="open(addStoneModal)">แก้ไขข้อมูล</button>
           </div>
         </div>
 
@@ -108,20 +145,21 @@
     </div>
 
   </div>
-  <ng-template #addStoneModal let-c="close" let-d="dismiss" >
+  <ng-template #addStoneModal let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-title">แก้ไขหิน่</h4>
+      <h4 class="modal-title" id="modal-title">แก้ไขหิน</h4>
       <button type="button" class="close" aria-describedby="modal-title" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <p><strong> คุณต้องการแก้ไขข้อมูลหิน  <span class="text-primary">{{stone.stone_name_th || '-' }}</span> ใช่มั้ย ?</strong></p>
+      <p><strong> คุณต้องการแก้ไขข้อมูลหิน <span class="text-primary">{{stone.stone_name_th || '-' }}</span> ใช่มั้ย
+        ?</strong></p>
       <p>
       </p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="d('cancel click')">ยกเลิก</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="cancel()">ยกเลิก</button>
       <button type="button" class="btn btn-success" (click)="onSubmit()">ตกลง</button>
     </div>
   </ng-template>

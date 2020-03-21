@@ -20,6 +20,9 @@ interface Stone {
   attribute: any;
   stone_img:any;
   stone_img_sm:any;
+  notusewith:any;
+  dis_description:string;
+  zodiac:string;
 }
 @Component({
   selector: 'app-add',
@@ -72,8 +75,11 @@ export class AddComponent implements OnInit {
   fileData: File = null;
   previewUrl:any = null;
   previewUrl2:any = null;
+  stoneItem;
+  zodiacItem
   logChange($event) {
-    this.stone.description =$event.html
+    this.stone.description = $event.html
+    this.stone.dis_description = $event.text
     console.log(this.editor);
     console.log($event);
   }
@@ -93,9 +99,22 @@ export class AddComponent implements OnInit {
     this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '' ;
     this.getStar();
     this.getAttributeList();
+    this.getStoneItem();
+    this.getZodiacItem();
   }
 
+  getStoneItem(){
+    this.api.getStone().subscribe(
+      data => {
+        this.stoneItem = data.result.results;
 
+      },
+      error => {
+        console.log(error)
+      }
+
+    );
+  }
   getAttributeList(){
     this.api.getAttribute().subscribe(
       data => {
@@ -133,12 +152,16 @@ export class AddComponent implements OnInit {
       i==1 ? this.previewUrl = reader.result : this.previewUrl2 = reader.result ;
     }
   }
+  getZodiacItem(){
+    this.api.getZodiac().subscribe(value => {
+      this.zodiacItem = value['result'].results
+    })
+  }
 
   getStar(){
     this.api.getStar().subscribe(value => {
       this.star = value['result'].results
-      this.stone.star =value['result'].results[0]
-      console.log(this.stone.star)
+      this.stone.star = 1
     })
   }
   onChange(){
@@ -147,22 +170,23 @@ export class AddComponent implements OnInit {
 
   onSubmit(){
 
-    var form_data = new FormData();
-    for ( var key in this.stone ) {
-      form_data.append(key, this.stone[key]);
-    }
-    this.api.postStone(form_data).subscribe(value =>{
-
-      console.log(value)
-      // @ts-ignore
-      // this.stone.id = value.result.id;
-      //@ts-ignore
-        this.openSnackBar("เพิ่มหิน "+value.result.stone_name_th+" เรียบร้อยแล้ว",value.result.id)
+    this.api.postStone(JSON.stringify(this.stone)).subscribe(value =>{
+      let stonenotuse = this.stone.notusewith;
+        console.log(this.stone.notusewith)
+        for (let stonenotuseKey in stonenotuse) {
+          let stone = {
+            // @ts-ignore
+            notusewith : [value.result.id]
+          }
+          this.api.editStone(stonenotuseKey,JSON.stringify(stone)).subscribe(value1 => {
+            console.log(value1);
+          })
+        }
+        // @ts-ignore
+      this.openSnackBar("เพิ่มหิน "+value.result.stone_name_th+" เรียบร้อยแล้ว",value.result.id)
       this.stone= {} as Stone;
       this.modal = this.modalService.dismissAll()
     }
-
-
     )
   }
   open(content) {
@@ -176,6 +200,11 @@ export class AddComponent implements OnInit {
       this.router.navigate(['/detail/' + id])
     })
   }
+  cancel(){
+    this.modal = this.modalService.dismissAll();
+    this.stone = null;
+  }
+
 
 }
 
