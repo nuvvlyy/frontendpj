@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
   attribute
   isDisplay = false;
   isSearchError = false;
-  
+
   isOpen: boolean = false
   isLogined: boolean = false
   frist_name
@@ -189,19 +189,14 @@ export class HomeComponent implements OnInit {
     this.isDisplay = true
     let params = new HttpParams();
     if (this.searchItem.get('dateOfBirth')) {
-      const str = this.dateOfBirth.year + this.dateOfBirth.month.toString() + this.dateOfBirth.day.toString();
-      const number = this.digSum(str).toString();
+      const str = this.dateOfBirth.day.toString()+"-"+this.dateOfBirth.month.toString()+"-"+this.dateOfBirth.year ;
+      // const number = this.digSum(str).toString();
       const BD = new Date(this.dateOfBirth.year, this.dateOfBirth.month - 1, this.dateOfBirth.day);
 
       this.dateOfBirth_display = 'วันที่ ' + this.dateOfBirth.day + ' เดือน ' + this.month[this.dateOfBirth.month - 1] + ' ปี ' + (Number(this.dateOfBirth.year)+543);
       // this.searchItem.push("วันเกิด : ​"+this.dateOfBirth_display)
       const param = new HttpParams();
-      params = params.append('day_of_week', BD.getDay().toString())
-              .append('day_of_mouth', BD.getDate().toString())
-              .append('number', number)
-              .append('month_of_year', BD.getMonth().toString());
-
-      // day_of_week=8&day_of_mouth=&number=&month_of_year=
+      params = params.append('date', str)
     }
     this.isLoading = true;
 
