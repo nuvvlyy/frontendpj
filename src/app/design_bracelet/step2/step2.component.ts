@@ -29,7 +29,6 @@ export class Step2Component implements OnInit {
   numOfStones: number;
   braceletImageFile: string;
 
-
   stoneItems = [];
   favStones = [];
   userStones = [];
@@ -136,6 +135,7 @@ export class Step2Component implements OnInit {
         const count = data.result.count;
         this.stoneItems.map((ras, index) => {
           res[index]['num'] = 0;
+          res[index]['notuse'] = 0;
           if (this.userStones.includes(ras.id)) {
             this.favStones.push(ras);
             console.log(res);
@@ -241,6 +241,7 @@ export class Step2Component implements OnInit {
   async onClickStone(stone, i) {
     this.isCheck = false;
     const img_src = stone.stone_img_sm;
+    const notusewith = stone.notusewith;
     if (this.activeButton == 'btn2' || this.activeButton == 'btn3') {
       i = Number(this.stoneItems.findIndex((value, index) => value.id == stone.id));
       // console.log(i)
@@ -252,12 +253,20 @@ export class Step2Component implements OnInit {
         if (value.active) {
           // count++;
           var ind = Number(this.bubble[index].index);
-          if (ind == -1) {
-            this.stoneItems[i]['num'] += 1;
-          } else {
-            this.stoneItems[i]['num'] += 1;
+          this.stoneItems[i]['num'] += 1;
+          notusewith.forEach(data =>{
+            let inde = Number(this.stoneItems.findIndex((value, index) => value.id == data));
+            this.stoneItems[inde]['notuse'] += 1
+          });
+          if (ind != -1) {
             this.stoneItems[ind]['num'] -= 1;
+            let notuse =  this.stoneItems[ind]['notusewith'];
+            notuse.forEach(data =>{
+              let inde = Number(this.stoneItems.findIndex((value, index) => value.id == data));
+              this.stoneItems[inde]['notuse'] -= 1
+            });
           }
+
 
           this.bubble.fill({'img': img_src, 'active': false, index: i}, index, index + 1);
         }

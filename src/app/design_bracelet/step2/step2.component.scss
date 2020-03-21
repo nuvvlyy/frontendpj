@@ -119,3 +119,14 @@ $num3:10;
 
   }
 }
+i {
+
+  &.fa-random {
+    color: #B8817D;
+
+    &:hover {
+      cursor: pointer;
+      color: #E36145;
+    }
+  }
+}

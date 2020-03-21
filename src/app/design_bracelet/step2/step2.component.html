@@ -6,14 +6,23 @@
 
         <div class="row">
           <div class="m-3 ml-3">
+            <button placement="top" ngbTooltip="เข้าสู่ระบบเพื่อใช้โหมดนี้"  type="button" [class.active]="isActive('btn3')" (click)="setActive('btn3')"
+                    class="btn btn-light col-4" [disabled]="true" *ngIf="!uid"
+            >เหมาะสำหรับคุณ
+            </button>
             <button type="button" [class.active]="isActive('btn3')" (click)="setActive('btn3')"
-                    class="btn btn-light col-4">เหมาะสำหรับคุณ
+                    class="btn btn-light col-4" *ngIf="uid"
+            >เหมาะสำหรับคุณ
             </button>
             <button type="button" [class.active]="isActive('btn1')" (click)="setActive('btn1')"
                     class="btn btn-light col-4">หินทั้งหมด
             </button>
             <button type="button" [class.active]="isActive('btn2')" (click)="setActive('btn2')"
-                    class="btn btn-light col-4"
+                    class="btn btn-light col-4" *ngIf="uid"
+            >ที่ชื่นชอบ
+            </button>
+            <button placement="top" ngbTooltip="เข้าสู่ระบบเพื่อใช้โหมดนี้" type="button" [class.active]="isActive('btn2')" (click)="setActive('btn2')"
+                    class="btn btn-light col-4" [disabled]="true" *ngIf="!uid"
             >ที่ชื่นชอบ
             </button>
           </div>
@@ -21,21 +30,39 @@
         </div>
         <div *ngIf="isActive('btn1')">
           <div class="row">
+            <div class="my-4 col-auto">
+              <div (click)="shuffle()">
+                <i class="fas fa-random"></i>
+                สุ่มแบบหินจากหินทั้งหมด
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
             <div *ngFor="let i of stoneItems;let r = index">
-              <div class="col-sm-2" *ngIf="stoneItems[r]&&stoneItems[r].stone_img_sm" placement="top"
+              <div class="col-sm-2" *ngIf="stoneItems[r]&&stoneItems[r].stone_img_sm&&stoneItems[r].notuse==0" placement="top"
                    ngbTooltip="{{stoneItems[r].stone_name_th}}">
                 <img class="img-stone w30 my2" (click)="onClickStone(stoneItems[r],r)"
                      [src]="urlsm(stoneItems[r].stone_img_sm)">
               </div>
             </div>
+            <div>
+
+            </div>
           </div>
         </div>
         <div *ngIf="isActive('btn2')">
-
           <div class="row">
-            <div *ngIf="uid">
+            <div class="my-4 col-auto">
+              <div  (click)="shuffle()">
+                <i class="fas fa-random"></i>
+                สุ่มแบบหินจากหินที่ชื่นชอบ
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="uid">
               <div *ngFor="let in of favStones;let r = index">
-                <div class="col-auto" *ngIf="favStones[r]&&favStones[r].stone_img_sm" tooltipClass="" placement="top"
+                <div class="col-sm-2" *ngIf="favStones[r]&&favStones[r].stone_img_sm" placement="top"
                      ngbTooltip="{{favStones[r].stone_name_th}}">
                   <img class="img-stone w30 my2" (click)="onClickStone(favStones[r],r)"
                        [src]="urlsm(favStones[r].stone_img_sm)">
@@ -43,18 +70,23 @@
 
 
               </div>
-            </div>
-            <div *ngIf="!uid">
-              เข้าสู่ระบบเพื่อใช้โหมดนี้
-            </div>
+
+<!--            <div *ngIf="!uid">-->
+<!--              เข้าสู่ระบบเพื่อใช้โหมดนี้-->
+<!--            </div>-->
           </div>
         </div>
         <div *ngIf="isActive('btn3')">
-
           <div class="row">
-            <div *ngIf="uid">
-              <div *ngFor="let in of stoneSuggest;let r = index">
-                <div class="col-auto" *ngIf="stoneSuggest[r]&&stoneSuggest[r].stone_img_sm" tooltipClass=""
+            <div class="my-4 col-auto">
+              <div  (click)="shuffle()">
+                <i class="fas fa-random"></i> สุ่มแบบหินจากหินที่ชเหมาะสำหรับคุณ
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="uid">
+              <div  *ngFor="let in of stoneSuggest;let r = index">
+                <div class="col-sm-2" *ngIf="stoneSuggest[r]&&stoneSuggest[r].stone_img_sm"
                      placement="top" ngbTooltip="{{stoneSuggest[r].stone_name_th}}">
                   <img class="img-stone w30 my2" (click)="onClickStone(stoneSuggest[r],r)"
                        [src]="urlsm(stoneSuggest[r].stone_img_sm)">
@@ -62,7 +94,7 @@
 
 
               </div>
-            </div>
+
             <div *ngIf="!uid">
               เข้าสู่ระบบเพื่อใช้โหมดนี้
             </div>
@@ -114,15 +146,14 @@
 
     <div class="row justify-content-center mx-auto">
 
-      <div class="col-auto">
+<!--      <div class="col-auto">-->
 
-        <div class="my-4 ">
-          <div class="btn btn-dark mr-2" (click)="shuffle()">
-            สุ่มแบบหิน
-          </div>
-
-        </div>
-      </div>
+<!--        <div class="my-4 ">-->
+<!--          <div class="btn btn-dark mr-2" (click)="shuffle()">-->
+<!--            สุ่มแบบหิน-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="col-auto ">
         <div class="my-4 align-items-end flex-column">
           <div class="d-flex align-items-start flex-column">
@@ -141,8 +172,5 @@
       </div>
     </div>
   </div>
-
-  <!--    {{ numOfStones }}-->
-  <!--    {{ radius }}-->
 
 </div>
