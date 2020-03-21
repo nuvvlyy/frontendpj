@@ -50,20 +50,23 @@
                         </h5>
                         <p class="card-text text-end"><small class="text-muted">สี : {{ stone.color || '-'}}</small>
                         </p>
-                        <!-- <small class="">สี {{ stone.color || '-' }}</small> -->
-                        <!-- <p class="card-text">{{ stone.description || "-"}}</p> -->
                       </div>
                       <div class="col">
                         <small class="card-text font-weight-bold">รายละเอียดของหิน</small>
 
-                        <small class="card-text des-text">{{ stone.description || " - "}}</small>
-                        <!-- <small class="card-text des-text mt-2">รายละเอียดของหิน..</small> -->
+                        <small class="card-text des-text">{{ stone.dis_description || " - "}}</small>
 
 
                       </div>
 
+
                     </div>
+                    <div class="d-flex justify-content-end">
+                      <div *ngFor="let a of stone.attribute;let i = index" class="d-inline ml2">
+                        <span class="badge badge-a p2">{{ AttributeItems[a].attribute_name }}</span>
+                      </div></div>
                   </div>
+
                 </div>
             </div>
 
