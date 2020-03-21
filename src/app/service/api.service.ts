@@ -19,6 +19,7 @@ export class ApiService {
     fb_user: this.admin_baseurl + '/fb-user',
     fb_fav: this.baseurl + '/fb-favorite',
     star: this.baseurl + '/star',
+    zodiac: this.baseurl + '/Zodiac',
     // stoneDetail: this.baseurl+ '/detail/',
   }
   constructor(private http: HttpClientService) { }
@@ -34,6 +35,12 @@ export class ApiService {
   getStoneDetail(id: string) {
 
     return from(this.http.get(this.api_URL.stone + '/' + id).then(response => {
+      return response;
+    }));
+  }
+  getZodiac() {
+
+    return from(this.http.get(this.api_URL.zodiac).then(response => {
       return response;
     }));
   }
