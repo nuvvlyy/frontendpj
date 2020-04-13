@@ -20,6 +20,7 @@ export class ApiService {
     fb_fav: this.baseurl + '/fb-favorite',
     star: this.baseurl + '/star',
     zodiac: this.baseurl + '/Zodiac',
+    BraceletPattern: this.baseurl + '/BraceletPattern',
     // stoneDetail: this.baseurl+ '/detail/',
   }
   constructor(private http: HttpClientService) { }
@@ -86,6 +87,16 @@ export class ApiService {
   }
   postStone(data){
     return from(this.http.postjson(this.api_URL.stone+'/', data).then(response => {
+      return response;
+    }));
+  }
+  addBraceletPattern(data){
+    return from(this.http.postjson(this.api_URL.BraceletPattern+'/', data).then(response => {
+      return response;
+    }));
+  }
+  getBraceletPattern(param){
+    return from(this.http.get(this.api_URL.BraceletPattern+'/', param).then(response => {
       return response;
     }));
   }
