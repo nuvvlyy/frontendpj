@@ -176,3 +176,13 @@ input.icon {
   height: 120px;
   width: 100%;
 }
+.attribute{
+  display:block;
+  max-width: 300px;
+  //justify-content: flex-end;
+  text-align: end;
+  &:before{
+    white-space: pre;
+  }
+
+}
