@@ -30,7 +30,7 @@
             <p>วันเดือนปีเกิดของคุณ</p>
             <div class="input-group">
                 <input class="form-control" placeholder="วันเดือนปีเกิดของคุณ" name="dp"
-                    ngbDatepicker #d="ngbDatepicker" data-date-language="th-th" [(ngModel)]="dateOfBirth" (ngModelChange)="searchItem.set('dateOfBirth', dateOfBirth)">
+                    ngbDatepicker #d="ngbDatepicker" data-date-language="th-th" [(ngModel)]="dateOfBirth" (ngModelChange)="setDateofBirth(iSDay)">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
                 </div>
@@ -45,22 +45,6 @@
                 <div *ngIf="haveUser" class="text-right">{{uDate}}</div>
             </div>
         </div>
-<!--       <div class="col-12 col-sm-auto">-->
-<!--            <p>เพศ</p>-->
-<!--            <div class="form-check form-check-inline">-->
-<!--                <input class="form-check-input" type="radio" name="gender" value="M" [(ngModel)]="gender">-->
-<!--                <label class="form-check-label" for="gender">ชาย</label>-->
-<!--            </div>-->
-<!--            <div class="form-check form-check-inline">-->
-<!--                <input class="form-check-input" type="radio" name="gender" value="F"[(ngModel)]="gender">-->
-<!--                <label class="form-check-label" for="gender">หญิง</label>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col-12 col-sm">-->
-<!--            <p>อาชีพ</p>-->
-<!--            <ng-select>-->
-<!--            </ng-select>-->
-<!--        </div>-->
         <div class="col-12 col-sm-auto">
             <p>เรื่องที่ต้องการเสริม</p>
             <ng-select [items]=AttributeItems
@@ -84,7 +68,7 @@
         <div class="col-auto mx-auto">
           <div class="row d-flex align-items-baseline">
             <div class="col-auto">
-              <button type="button" class="btn btn-blue " (click)="search()">ค้นหาหินสีที่เหมาะสมกับคุณ!</button>
+              <button type="button" class="btn btn-blue " (click)="search(iSDay)">ค้นหาหินสีที่เหมาะสมกับคุณ!</button>
             </div>
             <div class="col">
               <span class="text-reset " (click)="reset()"
@@ -124,10 +108,10 @@
 
         </div>
     </div>
-    <div class="row" *ngIf="stoneItems">
-        <div class="col-12 col-sm-4 col-xl-3 mt-4" *ngFor="let stone of stoneItems; let i = index">
-
-            <div class="card card-item">
+<!--    <div class="row" *ngIf="stoneItems">-->
+<!--        <div class="col-12 col-sm-4 col-xl-3 mt-4">-->
+         <div class="card-columns" *ngIf="stoneItems">
+            <div class="card card-item mt-4"  *ngFor="let stone of stoneItems; let i = index">
                 <div *ngIf="haveUser">
                     <i *ngIf="stone.fav" class="heart fas fa-heart fa-lg" (click)="addFav(stone.id,i)"
                     matTooltip="นำออกจากรายการโปรด"
@@ -158,7 +142,7 @@
                         <div class="col">
                             <small class="card-text font-weight-bold">รายละเอียดของหิน</small>
 
-                            <small class="card-text des-text">{{ stone.description || " - "}}</small>
+                            <small class="card-text des-text">{{ stone.dis_description || " - "}}</small>
                             <!-- <small class="card-text des-text mt-2">รายละเอียดของหิน..</small> -->
 
 
@@ -166,18 +150,47 @@
 
                     </div>
                   <div class="d-flex justify-content-end">
+                    <div class=" attribute ">
                   <div *ngFor="let a of stone.attribute;let i = index" class="d-inline ml2">
-                  <span class="badge badge-a p2">{{ AttributeItems[a].attribute_name }}</span>
+                  <span class="badge badge-a p2 mt-2">{{ AttributeItems[a-1].attribute_name }}</span>
                   </div></div>
+                  </div>
                 </div>
             </div>
         </div>
 
 
-    </div>
+<!--    </div>-->
     <div class="row text-center" *ngIf="!stoneItems">
         ไม่พบหินที่คุณค้นหา
     </div>
 </div>
 
 <app-loading *ngIf="isLoading"></app-loading>
+
+<ng-template #iSDay let-c="close" let-d="dismiss" >
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">ช่วงเวลาเกิด (สำหรับคนวันพุธ)</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-check">
+      <input class="form-check-input" type="radio" [(ngModel)]="isNight" value="0">
+      <label class="form-check-label" >
+        วันพุธช่วงกลางวัน
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" [(ngModel)]="isNight" value="1">
+      <label class="form-check-label" >
+        วันพุธช่วงกลางคืน
+      </label>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="onCloseModal()">ยกเลิก</button>
+    <button type="button" class="btn btn-success" (click)="onSubmit()">ตกลง</button>
+  </div>
+</ng-template>

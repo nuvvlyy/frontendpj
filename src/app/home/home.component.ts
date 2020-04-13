@@ -2,7 +2,7 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { Router } from '@angular/router';
-import { NgbDateStruct, NgbCalendar , NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct, NgbCalendar, NgbDateParserFormatter, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { debounce, debounceTime } from 'rxjs/operators';
@@ -29,6 +29,7 @@ declare var FB: any;
 export class HomeComponent implements OnInit {
 
 
+  modal ; NgbModalRef
   stoneItems;
   isLoading = true;
   AttributeItems;
@@ -51,12 +52,13 @@ export class HomeComponent implements OnInit {
   attribute
   isDisplay = false;
   isSearchError = false;
-  
+
   isOpen: boolean = false
   isLogined: boolean = false
   frist_name
   isDisplayNavbar = false;
-  isDisplayed: boolean = false
+  isDisplayed: boolean = false;
+  isNight=0;
   constructor(private api: ApiService,
               private router: Router,
               private calendar: NgbCalendar,
@@ -64,7 +66,8 @@ export class HomeComponent implements OnInit {
               private http: HttpClient,
               private titleService: Title,
               private snackBar: MatSnackBar,
-              @Inject(DOCUMENT) document) {
+              @Inject(DOCUMENT) document,
+              private modalService: NgbModal,) {
       this.modelChanged.pipe(
         debounceTime(800))
         .subscribe(model => {
@@ -108,13 +111,13 @@ export class HomeComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(e) {
     if (window.pageYOffset > 500) {
-      this.isDisplayNavbar = true
-      let element = document.getElementById('navbar');
-      element.classList.add('sticky');
+      this.isDisplayNavbar = true;
+      // let element = document.getElementById('navbar');
+      // element.classList.add('sticky');
     } else {
       this.isDisplayNavbar = false;
-      let element = document.getElementById('navbar');
-      element.classList.remove('sticky');
+      // let element = document.getElementById('navbar');
+      // element.classList.remove('sticky');
     }
   }
   ngOnDestroy() {
@@ -185,23 +188,22 @@ export class HomeComponent implements OnInit {
     return 'http://html-color.org/154360.jpg';
   }
 
-  search(param?) {
+  search(content?) {
     this.isDisplay = true
     let params = new HttpParams();
     if (this.searchItem.get('dateOfBirth')) {
-      const str = this.dateOfBirth.year + this.dateOfBirth.month.toString() + this.dateOfBirth.day.toString();
-      const number = this.digSum(str).toString();
+      const str = this.dateOfBirth.day.toString()+"-"+this.dateOfBirth.month.toString()+"-"+this.dateOfBirth.year ;
+      // const number = this.digSum(str).toString();
       const BD = new Date(this.dateOfBirth.year, this.dateOfBirth.month - 1, this.dateOfBirth.day);
 
       this.dateOfBirth_display = 'วันที่ ' + this.dateOfBirth.day + ' เดือน ' + this.month[this.dateOfBirth.month - 1] + ' ปี ' + (Number(this.dateOfBirth.year)+543);
-      // this.searchItem.push("วันเกิด : ​"+this.dateOfBirth_display)
-      const param = new HttpParams();
-      params = params.append('day_of_week', BD.getDay().toString())
-              .append('day_of_mouth', BD.getDate().toString())
-              .append('number', number)
-              .append('month_of_year', BD.getMonth().toString());
 
-      // day_of_week=8&day_of_mouth=&number=&month_of_year=
+      const param = new HttpParams();
+      params = params.append('date', str)
+      console.log(this.isNight)
+      if(this.isNight== 1){
+        params = params.append('isNight', 'true')
+      }
     }
     this.isLoading = true;
 
@@ -209,11 +211,6 @@ export class HomeComponent implements OnInit {
       params = params.append('search', this.searchItem.get('search'));
       // this.searchItem.set("search",param)
     }
-    // this.type.forEach(element => {
-    //   params = params.append('start', element)
-
-
-    // });
     if(this.attribute){
       params = params.append('attribute',this.attribute)
 
@@ -421,7 +418,28 @@ export class HomeComponent implements OnInit {
       window.location.reload();
     });
   }
+  open(content) {
+    this.modal = this.modalService.open(content)
+  }
+  setDateofBirth(content){
 
+    const BD = new Date(this.dateOfBirth.year, this.dateOfBirth.month - 1, this.dateOfBirth.day);
+    if(BD.getDay()===3){
+      this.open(content)
+    }else{
+      this.searchItem.set('dateOfBirth', this.dateOfBirth);
+    }
+
+  }
+  onCloseModal(){
+    this.modal = this.modalService.dismissAll();
+    this.dateOfBirth = null;
+  }
+  onSubmit(){
+    console.log(this.isNight)
+    this.modal = this.modalService.dismissAll();
+    this.searchItem.set('dateOfBirth', this.dateOfBirth);
+  }
 
 
 }

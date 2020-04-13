@@ -12,12 +12,33 @@
 }
 i{
 
-    color:#B8817D;
+  &.fa-heart {
+    color: #B8817D;
 
-        &:hover{
-            cursor: pointer;
-            color:#E36145;
-        }
+    &:hover {
+      cursor: pointer;
+      color: #E36145;
+    }
+  }
+  &.fa-trash-alt{
+    color: red;
+    right: 20px;
+    top: 20px;
+    &:hover{
+
+    }
+
+  }
+  &.fa-edit{
+    color: dimgray;
+    right: 40px;
+    top: 20px;
+  }
+  &:hover{
+    cursor: pointer;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+  }
 
 
 }

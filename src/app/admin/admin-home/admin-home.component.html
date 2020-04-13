@@ -9,9 +9,10 @@
                 </ng-select>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 col-sm-4 col-xl-3 mt-4" *ngFor="let stone of stoneItems">
-                <div class="card card-item" >
+<!--        <div class="row">-->
+        <div class="card-columns">
+<!--            <div class="col-12 col-sm-4 col-xl-3 ">-->
+                <div class="card card-item mt-4"  *ngFor="let stone of stoneItems">
                     <i class="fas fa-trash-alt" (click)="open(addStoneModal,stone)"
                        matTooltip="ลบข้อมูลของหิน"
                        [matTooltipPosition]="'above'"></i>
@@ -39,8 +40,8 @@
                   <div class="thumbnail card-img-top ">
                     <img class="card-img-top portrait" [src]="url(stone)">
                   </div>
-                  <div class="card-body" (click)="redirect(stone.id)">
-                    <div class="row">
+                  <div class="card-body" >
+                    <div class="row card-dis" (click)="redirect(stone.id)">
                       <div class="col-2 ">
                         <img class="stone-img" [src]="urlsm(stone.stone_img_sm)">
                       </div>
@@ -50,22 +51,28 @@
                         </h5>
                         <p class="card-text text-end"><small class="text-muted">สี : {{ stone.color || '-'}}</small>
                         </p>
-                        <!-- <small class="">สี {{ stone.color || '-' }}</small> -->
-                        <!-- <p class="card-text">{{ stone.description || "-"}}</p> -->
                       </div>
                       <div class="col">
                         <small class="card-text font-weight-bold">รายละเอียดของหิน</small>
 
-                        <small class="card-text des-text">{{ stone.description || " - "}}</small>
-                        <!-- <small class="card-text des-text mt-2">รายละเอียดของหิน..</small> -->
+                        <small class="card-text des-text">{{ stone.dis_description || " - "}}</small>
 
 
                       </div>
 
+
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <div class=" attribute ">
+                      <div *ngFor="let a of stone.attribute ; let i = index" class="d-inline ml2">
+                        <span class="badge badge-a p2 mt-2 " *ngIf="AttributeItems[a-1]">{{AttributeItems[a-1].attribute_name }}</span>
+                      </div>
+                      </div>
                     </div>
                   </div>
+
                 </div>
-            </div>
+<!--            </div>-->
 
 
         </div>

@@ -14,7 +14,8 @@ export class AdminHomeComponent implements OnInit {
   modal ;
   stoneItems;
   isLoading:boolean = true;
-  stone
+  stone;
+  AttributeItems;
 
   constructor(private api:ApiService,
               private router: Router,
@@ -26,6 +27,21 @@ export class AdminHomeComponent implements OnInit {
       return this.router.navigate(['/admin/login']);
     }
     this.getStoneItem();
+    this.getAttribute();
+  }
+  getAttribute() {
+    this.api.getAttribute().subscribe(
+      data => {
+        // @ts-ignore
+        this.AttributeItems = data.result.results;
+        // this.isLoading = false;
+        // console.log(data.result.results)
+      },
+      error => {
+        console.log(error);
+      }
+
+    );
   }
 
   getStoneItem(param?){

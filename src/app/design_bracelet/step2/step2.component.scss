@@ -1,5 +1,5 @@
 
-@import '~compass-mixins/lib/compass/css3';
+//@import '~compass-mixins/lib/compass/css3';
 .card{
     background-color: white;
     width: 75%;
@@ -119,3 +119,15 @@ $num3:10;
 
   }
 }
+i {
+
+  &.fa-random {
+    color: #154360;
+
+    &:hover {
+      cursor: pointer;
+      color: #54768B;
+    }
+  }
+}
+

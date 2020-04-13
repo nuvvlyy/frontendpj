@@ -51,6 +51,7 @@
     "ngx-bootstrap": "^5.3.2",
     "ngx-editor": "^4.1.0",
     "ngx-quill": "^7.3.12",
+    "node-sass": "^4.13.1",
     "path": "^0.12.7",
     "primeicons": "^2.0.0",
     "primeng": "^9.0.0",
@@ -61,6 +62,7 @@
     "save-dev": "0.0.1-security",
     "tslib": "^1.10.0",
     "typescript": "~3.7.5",
+    "typescript-map": "0.0.7",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

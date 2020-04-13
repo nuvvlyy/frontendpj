@@ -34,3 +34,12 @@
     text-align: left;
   }
 }
+.b{
+  width:100%;
+  height: 50%;
+}
+li{
+  &:active{
+    cursor: pointer;
+  }
+}

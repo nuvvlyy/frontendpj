@@ -7,8 +7,8 @@ import { HttpClientService } from './http-client.service'
 @Injectable({ providedIn: 'root' })
 
 export class ApiService {
-  // base ="http://localhost:8000";
-  base ="https://luckystoneadmin-api.herokuapp.com/";
+  base ="http://localhost:8000";
+  // base ="https://luckystoneadmin-api.herokuapp.com/";
   baseurl = this.base +"/api";
   admin_baseurl = this.base + "/api-admin"
   auth = this.base +"/api-auth";
@@ -19,6 +19,8 @@ export class ApiService {
     fb_user: this.admin_baseurl + '/fb-user',
     fb_fav: this.baseurl + '/fb-favorite',
     star: this.baseurl + '/star',
+    zodiac: this.baseurl + '/Zodiac',
+    BraceletPattern: this.baseurl + '/BraceletPattern',
     // stoneDetail: this.baseurl+ '/detail/',
   }
   constructor(private http: HttpClientService) { }
@@ -34,6 +36,12 @@ export class ApiService {
   getStoneDetail(id: string) {
 
     return from(this.http.get(this.api_URL.stone + '/' + id).then(response => {
+      return response;
+    }));
+  }
+  getZodiac() {
+
+    return from(this.http.get(this.api_URL.zodiac).then(response => {
       return response;
     }));
   }
@@ -78,7 +86,17 @@ export class ApiService {
     }));
   }
   postStone(data){
-    return from(this.http.post(this.api_URL.stone+'/', data).then(response => {
+    return from(this.http.postjson(this.api_URL.stone+'/', data).then(response => {
+      return response;
+    }));
+  }
+  addBraceletPattern(data){
+    return from(this.http.postjson(this.api_URL.BraceletPattern+'/', data).then(response => {
+      return response;
+    }));
+  }
+  getBraceletPattern(param){
+    return from(this.http.get(this.api_URL.BraceletPattern+'/', param).then(response => {
       return response;
     }));
   }

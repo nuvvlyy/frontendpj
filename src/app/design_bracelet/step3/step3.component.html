@@ -8,9 +8,37 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-auto">
-      <button type="button" class="btn btn-blue" (click)="onDownload()">บันทึกรูปภาพ</button>
+      <button type="button" class="btn btn-blue" (click)="previous()"><i class="fas fa-arrow-left mr-2"></i>ขั้นตอนก่อนหน้า</button>
+
     </div>
-  </div>
+    <div class="col-auto">
+      <button type="button" class="btn btn-blue" (click)="onDownload()"><i class="fas fa-download mr-2"></i>บันทึกรูปภาพ</button>
+
+    </div>
+    <div class="col-auto">
+      <button type="button" class="btn btn-blue" (click)="open(saveBraceletPattern)"><i class="fas fa-download mr-2"></i>บันทึกรูปแบบกำไล</button>
+
+    </div>
+      </div>
 </div>
 
 </div>
+<ng-template #saveBraceletPattern let-c="close" let-d="dismiss" >
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">แบบกำไลทั้งหมดของคุณ</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" >
+    <div class="form-group">
+      <label >ชื่อรูปแบบกำไล <span class="text-danger"> *</span></label>
+      <input type="text" class="form-control" [(ngModel)]="nameOfPattern"  placeholder="ชื่อรูปแบบกำไล" (change)="'isError=false'">
+         <small class="text-danger" *ngIf="isError"> โปรดใส่ชื่อรูปแบบกำไล</small>
+     </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="d('Cross click')">ยกเลิก</button>
+    <button type="button" class="btn btn-success" (click)="onSave()">ตกลง</button>
+  </div>
+</ng-template>
