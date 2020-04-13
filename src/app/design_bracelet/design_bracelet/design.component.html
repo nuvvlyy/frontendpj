@@ -38,8 +38,9 @@
 </div>
 <app-step1 *ngIf="_isStep1" (wristSize)="getWristSize($event)" (stoneSize) ="getStoneSize($event)" (stoneShape) ="getStoneShape($event)" (isStep2)="getIsStep2($event)"></app-step1>
 <div id="test-l-2" class="content">
-<app-step2 *ngIf="_isStep2" [wristSize]="_wristSize" [stoneSize]="_stoneSize" [stoneShape]="_stoneShape"  (isStep1)="getIsStep1($event)" (isStep3)="getIsStep3($event)" (bracelet_img)="getBraceletImg($event)" ></app-step2>
+<app-step2 *ngIf="_isStep2" [wristSize]="_wristSize" [stoneSize]="_stoneSize" [stoneShape]="_stoneShape"  (isStep1)="getIsStep1($event)" (isStep3)="getIsStep3($event)" (bracelet_img)="getBraceletImg($event)"
+           (_bracelet)="getBracelet($event)"  (_numOfStones)="getNumOfStones($event)"></app-step2>
 </div>
 <div id="test-l-3" class="content text-center">
-<app-step3 *ngIf="_isStep3" [bracelet_img]="_bracelet_img"></app-step3>
+<app-step3 *ngIf="_isStep3" [bracelet_img]="_bracelet_img" [wristSize]="_wristSize"  [stoneSize]="_stoneSize"  [bracelet]="bracelet" [numOfStones]="numOfStones" (isStep2)="getIsStep2($event)"></app-step3>
 </div>

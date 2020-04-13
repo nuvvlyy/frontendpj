@@ -14,6 +14,8 @@ export class DesignComponent implements OnInit {
   @Input() isstep2: boolean;
   @Input() isstep3: boolean;
   @Input() bracelet_img;
+  @Input() _bracelet;
+  @Input() numOfStones;
   // @ts-ignore
   @ViewChild('stepper1') stepper1: ElementRef;
 
@@ -27,6 +29,7 @@ export class DesignComponent implements OnInit {
   _isStep1 = true;
   _isStep3 = false;
   _bracelet_img;
+  bracelet;
 
   constructor() { }
 
@@ -65,6 +68,12 @@ export class DesignComponent implements OnInit {
   getBraceletImg (bracelet_img){
     console.log('getBraceletImg')
     this._bracelet_img = bracelet_img;
+  }
+  getBracelet(bracelet){
+    this.bracelet = bracelet;
+  }
+  getNumOfStones(numOfStones){
+    this.numOfStones = numOfStones;
   }
 
 }
