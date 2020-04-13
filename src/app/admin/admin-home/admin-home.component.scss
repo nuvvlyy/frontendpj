@@ -1,3 +1,7 @@
+
+@import "~bootstrap/scss/_functions.scss";
+@import "~bootstrap/scss/_variables.scss";
+@import "~bootstrap/scss/mixins/_breakpoints.scss";
 i{
     position: absolute;
     z-index:99;
@@ -44,13 +48,25 @@ i{
 card-img-top{
     height: 300px;
 }
-.card-body{
+.card-dis{
     &:hover{
         cursor: pointer;
         opacity: 0.75;
         filter: alpha(opacity=75);
 
     }
+
+
+}
+.attribute{
+  display:block;
+  max-width: 300px;
+  //justify-content: flex-end;
+  text-align: end;
+  &:before{
+    white-space: pre;
+  }
+
 }
 g-select.icon {
     font-family: FontAwesome;
@@ -86,4 +102,15 @@ ng-select.icon {
 .badge-a{
   background-color: #54768B;
   color: aliceblue;
+}
+
+
+.card-columns {
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 4;
+  }
+
 }
