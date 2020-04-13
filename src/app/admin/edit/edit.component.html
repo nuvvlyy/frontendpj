@@ -19,20 +19,27 @@
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label>ชื่อโบราณ</label>
             <input type="text" class="form-control" placeholder="ชื่อโบราณ" [ngModelOptions]="{standalone: true}"
                    [(ngModel)]="stone.ancient_name" (change)="onChange('ancient_name',stone.ancient_name)">
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label>สีของหิน <span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="สีของหิน" [ngModelOptions]="{standalone: true}"
                    [(ngModel)]="stone.color" (change)="onChange('color',stone.color)">
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label>ธาตุ <span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="ธาตุ" [ngModelOptions]="{standalone: true}"
                    [(ngModel)]="stone.element" (change)="onChange('element',stone.element)">
+          </div>
+          <div class="form-group col-md-3">
+            <label>วันเกิดประจำสัปดาห์ </label>
+            <ng-select [items]="day_of_week" placeholder="วันเกิดประจำสัปดาห์" bindLabel="name" bindValue="id"
+                       [clearable]="false" [(ngModel)]="stone.day_of_week" [ngModelOptions]="{standalone: true}"
+                       (change)="onChange('day_of_week',stone.day_of_week)"></ng-select>
+
           </div>
         </div>
         <div class="form-row">
@@ -63,7 +70,7 @@
 
           </div>
           <div class="form-group col-md-3">
-            <label>หินที่ไม่ควรอยู่ด้วยกัน <span class="text-danger">*</span></label>
+            <label>หินที่ไม่ควรอยู่ด้วยกัน</label>
 
             <ng-select [items]="stoneItem" placeholder="หินที่ไม่ควรอยู่ด้วยกัน" bindLabel="stone_name_th" bindValue="id"
                        [clearable]="false" [(ngModel)]="stone.notusewith" [ngModelOptions]="{standalone: true}"

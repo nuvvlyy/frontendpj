@@ -23,7 +23,8 @@ interface Stone {
   stone_img:any;
   stone_img_sm:any;
   notusewith:any;
-  zodiac:any
+  zodiac:any,
+  day_of_week:any
 }
 @Component({
   selector: 'app-edit',
@@ -66,6 +67,15 @@ export class EditComponent implements OnInit {
         ['clean'],
       ]}
   };
+  day_of_week =[{id:0,name:"วันจันทร์"},
+    {id: 1,name:"วันอังคาร"},
+    {id: 2,name:"วันพุธ"},
+    {id: 7,name:"วันพุธกลางคืน"},
+    {id: 3,name:"วันพฤหัส"},
+    {id: 4,name:"วันศุกร์"},
+    {id: 5,name:"วันเสาร์"},
+    {id: 6,name:"วันอาทิตย์"},
+  ];
 
   fileData: File = null;
   previewUrl:any = null;
@@ -74,11 +84,7 @@ export class EditComponent implements OnInit {
   stone_notuse:any;
   zodiacItem
   stoneEdit = new TSMap();
-  logChange($event) {
-    this.stone.description =$event.html
-    // console.log(this.editor);
-    console.log($event);
-  }
+
 
   constructor(private api: ApiService,
               private http: HttpClient,
@@ -166,6 +172,8 @@ export class EditComponent implements OnInit {
     var reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
+      i==1 ? this.stoneEdit.set('stone_img', reader.result)  : this.stoneEdit.set('stone_img_sm',reader.result) ;
+
       // console.log(reader.result)
       // this.selectedFile = new ImageSnippet(event.target.result, file);
       i==1 ? this.previewUrl = reader.result : this.previewUrl2 = reader.result ;
