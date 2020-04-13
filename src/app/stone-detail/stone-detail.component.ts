@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { ApiService } from '../service/api.service';
 import { HttpParams } from '@angular/common/http';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-stone-detail',
@@ -19,12 +20,17 @@ export class StoneDetailComponent implements OnInit {
   stoneID
   favID = -1;
   AttributeItems;
-
+  modal ;
+  isAdmin = false;
   constructor(private route: ActivatedRoute,
-    private router: Router,
-    private api: ApiService) { }
+              private router: Router,
+              private api: ApiService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
+    if(localStorage.getItem('user_type')=="admin"){
+      this.isAdmin = true;
+    }
     this.uid = localStorage.getItem('uid')
     let params = new HttpParams();
 
@@ -148,6 +154,16 @@ export class StoneDetailComponent implements OnInit {
       }
 
     );
+  }
+  gotoStone(id){
+    return this.router.navigate(['admin/edit/' + id])
+  }
+  open(content,stone) {
+    this.stone = stone
+    this.modal = this.modalService.open(content)
+  }
+  remove(id){
+
   }
 
 }

@@ -3,20 +3,22 @@
 <div *ngIf="!isLoading">
 
         <div class="row d-flex align-items-center p15">
+
             <div class="col-1 d-flex justify-content-end">
                 <img class="stone-img-sm" [src]="urlsm(stone.stone_img_sm)">
             </div>
             <div class="col-sm-9">
                 <h2>{{ stone.stone_name_th }}<div class="text-head px-2"> {{ stone.stone_name_en }}</div>
 
-                    <i *ngIf="stone.fav" class="fas fa-heart  fa-sm d-inline px-2" (click)="addFav()"
+                    <i *ngIf="stone.fav && !isAdmin" class="fas fa-heart  fa-sm d-inline px-2" (click)="addFav()"
                        matTooltip="นำออกจากรายการโปรด"
                        [matTooltipPosition]="'right'"></i>
 
-                    <i *ngIf="!stone.fav" class="far fa-heart fa-sm d-inline px-2" (click)="addFav()"
+                    <i *ngIf="!stone.fav && !isAdmin" class="far fa-heart fa-sm d-inline px-2" (click)="addFav()"
                        matTooltip="เพิ่มเข้าสู่รายการโปรด"
                        [matTooltipPosition]="'right'"></i>
                 </h2>
+
                 <label>สี : {{ stone.color || '-' }}</label>
               <div class="row">
                 <div class="col-auto pr-0">
@@ -32,12 +34,21 @@
 
                 <div class="d-flex col justify-content-start pr-1">
               <div *ngFor="let a of stone.attribute;let i = index" class="d-inline ml2">
-                <span class="badge badge-a p2">{{ AttributeItems[a].attribute_name }}</span>
+                <span class="badge badge-a p2">{{ AttributeItems[a-1].attribute_name }}</span>
               </div></div>
               </div>
 
             </div>
-            <p class="card-text"></p>
+          <div *ngIf="isAdmin" class="col-auto justify-content-end align-self-start">
+            <i class="fas fa-edit fa-lg mr-2"
+               matTooltip="แก้ไขข้อมูลหิน"
+               [matTooltipPosition]="'above'" (click)="gotoStone(stone.id)"></i>
+
+              <i class="fas fa-trash-alt fa-lg " (click)="open(removeStoneModal,stone)"
+                 matTooltip="ลบข้อมูลของหิน"
+                 [matTooltipPosition]="'above'"></i>
+
+          </div>
         </div>
     <div class="row">
         <div class="col-sm-auto ml20">
@@ -51,3 +62,22 @@
     </div>
 
 </div>
+
+<ng-template #removeStoneModal let-c="close" let-d="dismiss" >
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">ลบหิน</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong> คุณต้องการลบหิน  <span class="text-danger">{{stone.stone_name_th || '-' }}</span> ใช่มั้ย ?</strong></p>
+    <p>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="d('cancel click')">ยกเลิก</button>
+    <button type="button" class="btn btn-danger" (click)="remove(stone.id)">ตกลง</button>
+  </div>
+</ng-template>
+
