@@ -4,6 +4,9 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~bs-stepper/dist/css/bs-stepper.min.css';
+@import "~bootstrap/scss/_functions.scss";
+@import "~bootstrap/scss/_variables.scss";
+@import "~bootstrap/scss/mixins/_breakpoints.scss";
 
 .btn-blue{
   background-color: #154360;
@@ -109,4 +112,16 @@ $sizes: 800;
 
 .text-nowrap {
   white-space: nowrap;
+}
+.card-columns {
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(md) {
+    column-count: 4;
+  }
+
 }
