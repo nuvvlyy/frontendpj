@@ -71,9 +71,7 @@
 
               </div>
 
-<!--            <div *ngIf="!uid">-->
-<!--              เข้าสู่ระบบเพื่อใช้โหมดนี้-->
-<!--            </div>-->
+
           </div>
         </div>
         <div *ngIf="isActive('btn3')">
@@ -110,7 +108,6 @@
             <ul class="circle-container-{{numOfStones}} circle-size-{{wristsize}} item-size{{stoneSize}}">
               <!--                <ul class="circle-container-8">-->
               <div *ngFor="let in of bubble;let r = index">
-                <!--                    <li   (click)="onBubbleClick(r)"><img [src]="getSrc(bubble[r].img)"></li>-->
                 <li *ngIf="!in.active" (click)="onBubbleClick(r)"><img style="background-color: white"
                                                                        [src]="getSrc(bubble[r].img)"></li>
                 <li *ngIf="in.active" (click)="onBubbleClick(r)"><img style="background-color: white" class="active"

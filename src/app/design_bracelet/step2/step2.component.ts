@@ -4,7 +4,9 @@ import {HttpParams} from '@angular/common/http';
 import domtoimage from 'dom-to-image';
 import {saveAs} from 'file-saver';
 import {NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+interface Stone {
 
+}
 @Component({
   selector: 'app-step2',
   templateUrl: './step2.component.html',
@@ -17,8 +19,11 @@ export class Step2Component implements OnInit {
   @Output() bracelet_img = new EventEmitter<any>();
   @Output() isStep3 = new EventEmitter<boolean>();
   @Output() isStep1 = new EventEmitter<boolean>();
+  @Output() _bracelet = new EventEmitter<any>();
+  @Output() _numOfStones = new EventEmitter<any>();
   // @ts-ignore
   @ViewChild('bracelet') bracelet: ElementRef;
+
 
   math = Math;
   // _wristSize: number;
@@ -35,7 +40,8 @@ export class Step2Component implements OnInit {
   bubble = [{
     img: String,
     active: Boolean(),
-    index: Number
+    index: Number,
+    stone_id:Number
 
   }];
   isLoading = true;
@@ -64,22 +70,20 @@ export class Step2Component implements OnInit {
     // this.wristsize = this.wristSize.toFixed()
     this.calNumofStone();
     this.calRadius();
+    this.getStoneItem();
     if (localStorage.getItem('uid')) {
       this.uid = localStorage.getItem('uid');
       this.getFavStone();
       this.getDate();
-      const str = this.getDate().year + this.getDate().month.toString() + this.getDate().day.toString();
-      const number = this.digSum(Number(str)).toString();
-      const BD = new Date(this.getDate().year, this.getDate().month - 1, this.getDate().day);
+      const str = this.getDate().day.toString()+"-"+this.getDate().month.toString()+"-"+this.getDate().year ;
       let params = new HttpParams();
-      params = params.append('day_of_week', BD.getDay().toString())
-        .append('day_of_mouth', BD.getDate().toString())
-        .append('number', number)
-        .append('month_of_year', BD.getMonth().toString());
+      params = params.append('date', str)
       this.getStoneSuggest(params);
+
     }
 
-    this.getStoneItem();
+
+
     // this.wristsize = this.wristSize.toFixed()
   }
 
@@ -91,7 +95,7 @@ export class Step2Component implements OnInit {
     this.bubble = this.counter(num - 1);
     console.log(this.bubble);
     // @ts-ignore
-    this.bubble.fill({img: '../../assets/image/tmps.png', active: false, index: -1});
+    this.bubble.fill({img: '../../assets/image/tmps.png', active: false, index: -1,stone_id: 0});
     console.log(this.bubble);
 
 
@@ -125,35 +129,58 @@ export class Step2Component implements OnInit {
   }
 
 
-  getStoneItem() {
-    this.api.getStone().subscribe(
-      data => {
-        this.stoneItems = data.result.results;
-        this.isLoading = false;
-        this.row = Math.ceil(data.result.count / 5);
-        const res = data.result.results;
-        const count = data.result.count;
-        this.stoneItems.map((ras, index) => {
-          res[index]['num'] = 0;
-          res[index]['notuse'] = 0;
-          if (this.userStones.includes(ras.id)) {
-            this.favStones.push(ras);
-            console.log(res);
-          }
-          if (index === count - 1) {
-            this.isLoading = false;
-            this.favRow = Math.ceil(this.favStones.length / 5);
-            console.log(this.favStones);
-          }
+  async getStoneItem() {
+    this.api.getStone().subscribe(data => {
+      this.stoneItems = data.result.results;
+      this.isLoading = false;
+      this.row = Math.ceil(data.result.count / 5);
+      const res = data.result.results;
+      const count = data.result.count;
+      this.stoneItems.map((ras, index) => {
+        res[index]['num'] = 0;
+        res[index]['notuse'] = 0;
+        if (this.userStones.includes(ras.id)) {
+          this.favStones.push(ras);
+          console.log(res);
+        }
+        if (index === count - 1) {
+          this.isLoading = false;
+          this.favRow = Math.ceil(this.favStones.length / 5);
+          console.log(this.favStones);
+        }
+      });
+      if (localStorage.getItem('pattern')) {
+        let pattern = JSON.parse(localStorage.getItem('pattern'));
+        console.log(this.stoneItems);
+        this.bubble.forEach((value, i) => {
+          if (pattern.stoneList[i] !== 0) {
+            // value.stone_id = pattern.stoneList[i];
+            const ind = this.stoneItems.findIndex(d => pattern.stoneList[i] === d.id) ;
+            const inde = []
+            inde.push(ind)
+            // console.log(ind);
+            // value.img =this.stoneItems[ind].stone_img_sm
+            this.stoneItems[ind]['num'] += 1;
+            // value.index = ind
+            // this.bubble.fill({
+            //   'img': this.stoneItems[ind].stone_img_sm,
+            //   'active': false,
+            //   index : 1,
+            //   stone_id: pattern.stoneList[i]
+            // }, i, i + 1);
 
+              this.bubble.fill({'img': this.stoneItems[ind].stone_img_sm, active: false, index: inde[0], stone_id: pattern.stoneList[i]}, i, i + 1);
+
+
+                    }
         });
-        // console.log(data.results[1],this.row)
-        console.log(data.result);
-      },
-      error => {
-        console.log(error);
+        // localStorage.removeItem('pattern');
       }
-    );
+      // console.log(data.results[1],this.row)
+      console.log(data.result);
+    }, error => {
+      console.log(error);
+    });
 
 
   }
@@ -161,7 +188,7 @@ export class Step2Component implements OnInit {
   getStoneSuggest(param) {
     this.api.getStone(param).subscribe(value => {
       this.stoneSuggest = value.result.results;
-      // const count = value.result.count;
+      console.log(value.result.results)
       this.sRow = Math.ceil(value.result.count / 5);
     });
   }
@@ -218,13 +245,12 @@ export class Step2Component implements OnInit {
   }
 
   onBubbleClick(index) {
-    // this.bubble[0]['active'] = true;
     this.bubbleIndex = index;
     this.isBubble = true;
     if (this.bubble[index].active) {
-      this.bubble.fill({'img': this.bubble[index].img, active: false, index: this.bubble[index].index}, index, index + 1);
+      this.bubble.fill({'img': this.bubble[index].img, active: false, index: this.bubble[index].index,stone_id: this.bubble[index].stone_id}, index, index + 1);
     } else {
-      this.bubble.fill({'img': this.bubble[index].img, active: true, index: this.bubble[index].index}, index, index + 1);
+      this.bubble.fill({'img': this.bubble[index].img, active: true, index: this.bubble[index].index, stone_id: this.bubble[index].stone_id}, index, index + 1);
     }
 
 
@@ -268,19 +294,12 @@ export class Step2Component implements OnInit {
           }
 
 
-          this.bubble.fill({'img': img_src, 'active': false, index: i}, index, index + 1);
+          this.bubble.fill({'img': img_src, 'active': false, index: i, stone_id:stone.id}, index, index + 1);
         }
       });
 
       this.stoneAll = [];
       console.log(this.stoneAll);
-      // this.stoneSelect.forEach((value, index) => {
-      //   var s = this.stoneAll.findIndex(x => x == value.stone);
-      //   if(s==-1 ){
-      //     this.stoneAll.push(value.stone);
-      //   }
-      //
-      // })
       console.log(this.stoneAll);
     }
     console.log(stone);
@@ -297,10 +316,13 @@ export class Step2Component implements OnInit {
       height: this.bracelet.nativeElement.offsetHeight,
       width: this.bracelet.nativeElement.offsetWidth * 2
     }).then((dataUrl) => {
-
+      localStorage.setItem('bracelet',JSON.stringify(this.bubble));
       this.braceletImageFile = dataUrl;
       this.bracelet_img.emit(dataUrl);
       this.isStep3.emit(true);
+      this._bracelet.emit(this.bubble);
+      this._numOfStones.emit(this.numOfStones)
+
       // console.log(dataUrl)
       // braceletImageFile = dataUrl;
     })
@@ -342,7 +364,7 @@ export class Step2Component implements OnInit {
         if (this.stoneItems[num].stone_img_sm) {
 
           var ind = Number(this.bubble[i].index);
-          this.bubble.fill({'img': this.stoneItems[num].stone_img_sm, 'active': false, index: num}, i, i + 1);
+          this.bubble.fill({'img': this.stoneItems[num].stone_img_sm, 'active': false, index: num,stone_id: this.stoneItems[num].id}, i, i + 1);
           if (ind == -1) {
             this.stoneItems[num]['num'] += 1;
           } else {
