@@ -106,7 +106,6 @@
         <div class="row">
           <div class="col-auto">
             <ul class="circle-container-{{numOfStones}} circle-size-{{wristsize}} item-size{{stoneSize}}">
-              <!--                <ul class="circle-container-8">-->
               <div *ngFor="let in of bubble;let r = index">
                 <li *ngIf="!in.active" (click)="onBubbleClick(r)"><img style="background-color: white"
                                                                        [src]="getSrc(bubble[r].img)"></li>
