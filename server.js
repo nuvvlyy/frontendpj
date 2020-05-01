@@ -11,7 +11,6 @@ const app = express();
 //   res.sendFile(path.join(__dirname,'/dist/frontend/index.html'));
 // });
 app.use(express.static(path.join(__dirname, '/dist/frontend/')));
-app.listen(port);
 app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname + "/dist/frontend/"));
 });
