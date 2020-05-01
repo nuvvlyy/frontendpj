@@ -7,8 +7,8 @@ import { HttpClientService } from './http-client.service'
 @Injectable({ providedIn: 'root' })
 
 export class ApiService {
-  base ="http://localhost:8000";
-  // base ="https://luckystoneadmin-api.herokuapp.com/";
+  // base ="http://localhost:8000";
+  base ="https://luckystoneadmin-api.herokuapp.com/";
   baseurl = this.base +"/api";
   admin_baseurl = this.base + "/api-admin"
   auth = this.base +"/api-auth";
