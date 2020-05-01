@@ -16,7 +16,7 @@ export class HttpClientService {
     this.httpHeaders.append('Content-Type', 'text/html');
     this.httpHeaders.append('Accept', 'application/json');
     this.httpHeaders.append('Accept', 'text/plain');
-    this.httpHeaders.append('Access-Control-Allow-Origin', 'hhttp://localhost:8000/');
+    this.httpHeaders.append('Access-Control-Allow-Origin', 'https://luckystoneadmin-api.herokuapp.com');
     this.httpHeaders.append('Access-Control-Allow-Credentials', 'true');
     this.httpHeaders.append('X-CSRFTOKEN', 'gZucgSZPYReQomGO24vZKCVYxrI6l2XwHRJmgC9b1yFlzVAEpcVoKrhtJ7RWB72D');
     // this.httpHeaders.append("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
@@ -42,7 +42,7 @@ export class HttpClientService {
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Content-Type', 'text/html');
     headers.append('Access-Control-Allow-Headers', 'Content-Type');
-    headers.append('Access-Control-Allow-Origin', 'http://localhost:8000/');
+    headers.append('Access-Control-Allow-Origin', 'https://luckystoneadmin-api.herokuapp.com');
     return await this.to(this.http.post(url,data,{headers: headers}))
   }
   async postjson(url,data,params?): Promise<Observable<any>> {
