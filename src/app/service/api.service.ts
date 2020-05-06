@@ -3,12 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { from, Observable } from 'rxjs';
 
 import { HttpClientService } from './http-client.service'
-
+import { environment } from '../../environments/environment';
 @Injectable({ providedIn: 'root' })
 
 export class ApiService {
   // base ="http://localhost:8000";
-  base ="https://luckystoneadmin-api.herokuapp.com";
+  base = environment.apiUrl;
   baseurl = this.base +"/api";
   admin_baseurl = this.base + "/api-admin"
   auth = this.base +"/api-auth";
